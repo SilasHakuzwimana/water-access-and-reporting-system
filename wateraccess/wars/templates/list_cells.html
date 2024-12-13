@@ -1,0 +1,7 @@
+<h1>Cells</h1>
+<a href="{% url 'add_cell' %}">Add Cell</a>
+<ul>
+    {% for cell in cells %}
+    <li>{{ cell.name }}</li>
+    {% endfor %}
+</ul>

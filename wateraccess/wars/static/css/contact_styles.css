@@ -1,0 +1,133 @@
+*{
+    font-family: 'EB Garamond', serif;
+}
+body {
+    font-family: 'EB Garamond', serif;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.overall-container{
+    width: 100%;
+    max-width: 600px;
+    padding: 10px 20px;
+    margin: 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+}
+.container {
+    width: 100%;
+    max-width: 550px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.logo h1 {
+    font-family: 'EB Garamond', serif;
+    background-color: #D9D9D9;
+    margin-left: 87px;
+    margin-right: 939px;
+    margin: 0;
+    font-size: 36px;
+}
+.header h2 {
+    display: flex;
+    font-size: 28px;
+    color: #18BBB1;
+    align-items: center;
+    justify-content: center;
+    background-color: #D9D9D9;
+    padding: 10px 20px;
+    border-radius: 5px;
+    gap: 10px;
+}
+.header h2 i img {
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    width: 30px;
+    height: 30px;
+}
+.contact-form .form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"], input[type="tel"], input[type="email"], textarea, input[type="file"] {
+    font-family: 'EB Garamond', sans-serif;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+input:focus,textarea:focus{
+    outline: none;
+    border-color: #18BBB1;
+}
+.contact-file {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .contact-file input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .contact-file i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;  /* Prevents the icon from blocking file input clicks */
+  }
+
+  .contact-file i img {
+    width: 2.5em;
+    height: 2.5em;
+    opacity: 0.7;  /* Slight transparency for subtlety */
+  }
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+.btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submit {
+    background-color: #18BBB1;
+}
+
+.home {
+    background-color: #0C21E4;
+}

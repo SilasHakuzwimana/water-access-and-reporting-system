@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - Reg OTP Verification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;800&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reg_otp_verification_styles.css'%}">
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="logo">
+    </header>
+    <div class="container">
+        <h1 class="title">
+            <img src="{% static 'images/front-images/upp-otp-verification-icon.svg'%}" alt="OTP Icon"> Registration OTP Verification
+        </h1>
+        <br />
+        <br />
+        <p class="instruction">Enter your OTP received </p>
+        <form class="otp-form">
+            <input type="text" maxlength="6" placeholder="Enter OTP to verify registered email" class="otp-input" aria-label="OTP" required>
+            <div class="button-group">
+                <button type="button" class="cancel-btn" onclick="redirectToRegister();">Cancel</button>
+                <button type="submit" class="verify-btn">Verify OTP</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function redirectToRegister(){
+            window.location.href="/register";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - Admin System Dashboard</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{% static 'css/admin_styles.css'%}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+          <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="logo">
+          <h1 class="title"><span><img src="{% static 'images/sedo-sec-images/sedo-sec_dashboard-icon.svg'%}" alt="Dashboard icon"></span>Admin System Dashboard</h1>
+        </header>
+    
+        <!-- Dashboard Content -->
+        <main class="dashboard">
+          <!-- Menu Items -->
+          <aside class="menu">
+            <ul>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin_profile-fill.png'%}" alt="profile" width="50px" height="50px"></span> <!-- Profile Icon -->
+                Profile
+              </li>
+              <li>
+                <span class="icon"><img src="{%static 'images/admin-images/admin-manage_users.svg'%}" alt="manage users"></span> <!-- manage users Icon -->
+                Manage users
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-login-logs.svg'%}"></span> <!-- login logs Icon -->
+                Login logs
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-user-messages-icon.svg'%}"></span> <!-- Cases Icon -->
+                User messages
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-reply-users.png'%}"> </span> <!-- Reply users Icon -->
+                Reply users
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-notifications.svg'%}"></span> <!-- Notifications Icon -->
+                Notifications
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-helpdesk-icon.svg'%}"></span> <!-- Notifications Icon -->
+                Help desk
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-report-icon.svg'%}"></span> <!-- Notifications Icon -->
+                Reports
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-contact-sedos-icon.png'%}"></span> <!-- Notifications Icon -->
+                Contact SEDOs
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-contact-wasac.svg'%}"></span> <!-- Notifications Icon -->
+                Contact WASAC
+              </li>
+              <li>
+                <span class="icon"><img src="{% static 'images/admin-images/admin-logout.png'%}" alt="profile" width="50px" height="50px"></span> <!-- Logout Icon -->
+                Logout
+              </li>
+            </ul>
+          </aside>
+    
+          <!-- Details Section -->
+          <section class="details">
+            <h3>Welcome to Admin Dashboard!</h3>
+            <br>
+            <br>
+            <p>Select an action below to get started:</p>
+            <div class="detail-card">
+              <h2>Profile</h2>
+              <p>View your profile settings.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Manage users</h2>
+              <p>View and manage all users within the system.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Login logs</h2>
+              <p>Access  all login attempts from users.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Messages</h2>
+              <p>View all users messages and  contact them.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Reply users</h2>
+              <p>Reply to all users messages.</p>
+            </div>
+            <div class="detail-card">
+                <h2>Notifications</h2>
+                <p>Read all notifications.</p>
+            </div>
+            <div class="detail-card">
+                <h2>Help desk</h2>
+                <p>Contact support from dev now.</p>
+            </div>
+            <div class="detail-card">
+                <h2>Reports</h2>
+                <p>Generate reports regarding system actions.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Contact SEDOs</h2>
+              <p>Message all SEDOs for any incoming request.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Contact WASAC</h2>
+              <p>Contact WASAC for issue arises.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Logout</h2>
+              <p>Leave the system securely.</p>
+            </div>
+          </section>
+        </main>
+      </div>
+</body>
+</html>

@@ -1,0 +1,343 @@
+/* General Styles */
+body {
+    font-family: 'Garamond', serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #ffffff;
+}
+
+header {
+    background: #ffffff;
+    color: #000;
+    display: flex;
+    flex-direction: column; /* Stack logo and nav vertically */
+    align-items: flex-start; /* Align logo to the left */
+    padding: 1rem 5%;
+    box-sizing: border-box; /* Ensure padding doesn't add extra width */
+}
+
+.logo img {
+    width: 200px; /* Adjusted for better responsiveness */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Navigation Bar */
+nav .nav-bar {
+    align-items: center;
+    width: 100%; /* Ensure full width */
+    background-color: #ffffff; /* Match header background */
+    display: flex;
+    justify-content: flex-start; /* Align nav items to the left */
+    list-style: none;
+    position: relative;
+    left: 50px;
+    padding: 0;
+    border-radius: 20px;
+    margin-top: 0px; /* Space below the logo */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    gap:50px;
+}
+
+nav .nav-bar li {
+    padding:30px; /* Space for the underline */
+    border-radius: 15px;
+}
+
+nav .nav-bar li a {
+    font-size: 1.1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative; /* Needed for underline effect */
+    transition: color 0.3s;
+}
+
+nav .nav-bar li a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease;
+}
+
+nav .nav-bar li a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+nav .nav-bar li a:hover {
+    color: #ee9b00; /* Text color on hover */
+}
+
+/* Section Styling */
+.welcome, .about, .mission, .partners {
+    text-align: justify;
+    background: #fff;
+    border-radius: 8px;
+    margin: 2% 5%;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #000;
+    text-align: justify;
+}
+
+.welcome p, .about p, .mission p, .partners p {
+    text-align: justify;
+    font-size: 1.1rem;
+}
+
+.partners .mission b{
+    font-weight: bolder;
+}
+#water  {
+    margin: 0.5rem 0;
+    position: relative; /* Needed for the pseudo-element */
+    display: inline-block; /* Ensures correct width for underline */
+    transition: color 0.3s, transform 0.3s;
+}
+
+#water:hover {
+    cursor: pointer;
+    color: #ee9b00; /* Accent color on hover */
+    transform: translateX(5px); /* Moves the text slightly to the right */
+}
+
+#water::after {
+    content: ''; /* Necessary for the pseudo-element to appear */
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0; /* Initial width is 0 */
+    height: 2px; /* Thickness of the underline */
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+
+#water:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+/* Add more styles as needed */
+#wasac{
+    margin: 0.5rem 0;
+    position: relative; /* Needed for the pseudo-element */
+    display: inline-block; /* Ensures correct width for underline */
+    transition: color 0.3s, transform 0.3s;
+}
+
+#wasac:hover {
+    color: #ee9b00; /* Accent color on hover */
+    cursor: pointer;
+    transform: translateX(5px); /* Moves the text slightly to the right */
+}
+
+#wasac::after {
+    content: ''; /* Necessary for the pseudo-element to appear */
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0; /* Initial width is 0 */
+    height: 2px; /* Thickness of the underline */
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+
+#wasac:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+.mission .join{
+    margin: 0.5rem 0;
+    position: relative;
+    display: inline-block;
+    transition: width 0.3s ease ;
+}
+.mission .join:hover{
+    width: 100%;
+    cursor: pointer;
+}
+.mission .join::after{
+    content: ''; /* Necessary for the pseudo-element to appear */
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0; /* Initial width is 0 */
+    height: 2px; /* Thickness of the underline */
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+.mission .join:hover::after{
+    width: 20%; /* Expand underline on hover */
+}
+/* hovering styles for welcome */
+
+#learn {
+    margin: 0.5rem 0;
+    position: relative; /* Needed for the pseudo-element */
+    display: inline-block; /* Ensures correct width for underline */
+    transition: color 0.3s, transform 0.3s;
+}
+
+#learn:hover {
+    color: #ee9b00; /* Accent color on hover */
+    transform: translateX(5px); /* Moves the text slightly to the right */
+    cursor: pointer;
+}
+
+#learn::after {
+    content: ''; /* Necessary for the pseudo-element to appear */
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0; /* Initial width is 0 */
+    height: 2px; /* Thickness of the underline */
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+
+#learn:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+/* Partner Logos */
+.partners img {
+    width: 150px;
+    margin: 1rem auto;
+}
+.partners .partners-text .join{
+    margin: 0.5rem 0;
+    position: relative; /* Needed for the pseudo-element */
+    display: inline-block; /* Ensures correct width for underline */
+    transition: color 0.3s, transform 0.3s;
+}
+.partners .partners-text .join:hover {
+    transform: translateX(5px); /* Moves the text slightly to the right */
+    cursor: pointer;
+}
+.partners .partners-text .join::after {
+    content: ''; /* Necessary for the pseudo-element to appear */
+    position: absolute;
+    bottom: -3px; /* Place line slightly below the text */
+    left: 0;
+    width: 0; /* Initial width is 0 */
+    height: 2px; /* Thickness of the underline */
+    background-color: #ee9b00; /* Line color */
+    transition: width 0.3s ease; /* Smooth transition */
+}
+.partners .partners-text .join:hover::after {
+    width: 100%;
+}
+/* Footer */
+footer {
+    background: #f9f9f9;
+    color: #000;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:20px;
+    padding: 2rem 5%;
+}
+
+footer .social-media a {
+    color: #2A24E2;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer .social-media a:hover {
+    color: #ee9b00;
+}
+
+footer .use-cases, .explore, .resources {
+    flex: 1;
+    margin: 1rem;
+    text-align: left;
+}
+
+footer h3 {
+    border-bottom: 2px solid #ee9b00;
+    padding-bottom: 0.5rem;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin: 0.5rem 0;
+    transition: color 0.3s, transform 0.3s;
+}
+
+footer ul li:hover {
+    color: #ee9b00; /* Accent color on hover */
+    transform: translateX(5px); /* Moves the text slightly to the right */
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+footer ul li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ee9b00;
+    transition: width 0.3s ease;
+    cursor: pointer;
+}
+
+footer ul li:hover::after {
+    width: 100%; /* Full width on hover */
+    cursor: pointer;
+}
+
+.footer {
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    nav .nav-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+
+    .welcome, .about, .mission, .partners {
+        margin: 4% 2%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        align-items: center; /* Center logo in smaller screens */
+    }
+
+    nav .nav-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}

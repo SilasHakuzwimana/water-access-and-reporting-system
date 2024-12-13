@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - User Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/register_styles.css'%}">
+</head>
+<body>
+    <header>
+        <div>
+            <img src="{% static 'images/front-images/wars_logo.png'%}" alt="System logo">
+        </div>
+    </header>
+    <div class="overall-container">
+        <div class="form-container">
+        <h2 class="form-header"><i><img src="{% static 'images/front-images/add-user-icon.png'%}" alt="User register"></i> System User Registration</h2>
+        <form>
+          <div class="form-section">
+            <div class="form-group">
+              <label for="name">Names *</label>
+              <input type="text" id="name" placeholder="Enter your legal names" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" placeholder="Enter a valid email address" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nationalId">National ID/Passport No *</label>
+            <input type="text" name="nationalId" id="nationalId" placeholder="Enter valid ID No/Passport No" maxlength="16" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" name="phone" id="phone" placeholder="Enter your valid phone number" maxlength="15" required>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth *</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender *</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nationality">Nationality *</label>
+            <input type="text" id="nationality" name="nationality" placeholder="Enter your nationality" required>
+          </div>
+          <div class="form-group">
+            <label for="emergencyContact">Emergency Contact *</label>
+            <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Enter emergency contact number" required>
+          </div>
+          <div class="form-section">
+            <h3>Select Your Location</h3>
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <select id="country" required>
+                <option value="">Select your country</option>
+                <option value="RWanda">Rwanda</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="province">Province *</label>
+                <select id="province" required>
+                    <option value="">Select Province</option>
+                    <option value="Eastern">Eastern Province</option>
+                    <option value="Kigali">Kigali Province</option>
+                    <option value="Northern">Northern Province</option>
+                    <option value="Southern">Southern Province</option>
+                    <option value="Western">Western Province</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="district">District *</label>
+                <select id="district" required>
+                    <option value="">Select District</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sector">Sector *</label>
+                <select id="sector" required>
+                    <option value="">Select Sector</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cell">Cell *</label>
+                <select name="cell" id="cell">
+                    <option value="">Select Cell</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="village">Village *</label>
+                <select name="village" id="village">
+                    <option value="">Select Village</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="profile">Upload your profile picture *</label>
+                <div class="file">
+                  <input type="file" id="profile" name="profile" placeholder="Upload your picture (10 MB)" required />
+                  <i><img src="{% static 'images/front-images/upload-cloud-prof-pic.svg'%}" alt="Upload profile picture"></i>
+                </div>
+              </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="btn btn-secondary" onclick="redirectToLogin();">Cancel <span> <img src="{% static 'images/front-images/regist-user-cancel-icon.svg'%}"></span></button>
+            <button type="submit" class="btn btn-primary" onclick="redirectToRegOtp();">Register User <span> <img src="{% static 'images/front-images/regist-user-plus.svg'%}"></span> </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+        function redirectToLogin(){
+            window.location.href = '/login';
+        }
+        function redirectToRegOtp(){
+            window.location.href = '/registration-otp-verification';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<h1>Districts</h1>
+<a href="{% url 'add_district' %}">Add District</a>
+<ul>
+    {% for district in districts %}
+    <li>{{ district.name }}</li>
+    {% endfor %}
+</ul>

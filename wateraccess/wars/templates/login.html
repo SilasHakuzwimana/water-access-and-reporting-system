@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - System User Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static  'css/login_styles.css'%}">
+</head>
+<body>
+    <div class="logo">
+        <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water Access & Reporting System Logo">
+    </div>
+    <div class="overall-container">
+    <div class="container">
+        <div class="header">
+            <h2><i><img src="{% static 'images/front-images/upp-login-icon.png'%}" alt="Login Icon"></i> System User Login</h2>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" placeholder="Enter your registered email address" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn btn-cancel" onclick="redirectToIndex();">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg'%}" alt="cancel"></i></button>
+                <button type="submit" class="btn btn-login" onclick="redirectToOtp();">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg'%}" alt=""></i></button>
+            </div>
+        </form>
+        <div class="links">
+            <p>Not yet remember password?<a href="/password-reset">Forgot Password</a></p>
+            <br>
+            <p>Don't have an account yet? <a href="/register">Register</a></p>
+        </div>
+    </div>
+</div>
+<script>
+    function redirectToIndex() {
+        window.location.href = "/";
+    }
+    function redirectToOtp(){
+        window.location.href = "/login-otp-verification";
+    }
+</script>
+</body>
+</html>

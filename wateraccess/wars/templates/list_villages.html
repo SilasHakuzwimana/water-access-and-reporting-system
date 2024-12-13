@@ -1,0 +1,7 @@
+<h1>Villages</h1>
+<a href="{% url 'add_village' %}">Add Village</a>
+<ul>
+    {% for village in villages %}
+    <li>{{ village.name }}</li>
+    {% endfor %}
+</ul>

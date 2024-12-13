@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - OTP Verification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;800&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login_otp.css'%}">
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="logo">
+    </header>
+    <div class="container">
+        <h1 class="title">
+            <img src="{% static 'images/front-images/upp-otp-verification-icon.svg'%}" alt="OTP Icon"> System OTP Verification
+        </h1>
+        <br />
+        <br />
+        <p class="instruction">Enter your OTP received </p>
+        <form class="otp-form">
+            <input type="text" max-length="6" placeholder="Enter the OTP you received to complete login" class="otp-input" aria-label="OTP" required>
+            <div class="button-group">
+                <button type="button" class="cancel-btn" onclick="redirectToLogin();">Cancel <i><img src="images/" alt=""></i> </button>
+                <button type="submit" class="verify-btn" onclick="redirectToDashboard();">Verify OTP</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function redirectToLogin() {
+            window.location.href = "/login";
+        }
+        function redirectToDashboard(){
+            //window.location.href = "/administration_dashboard";
+            window.location.href='/sedo-cell-dashboard';
+           // window.location.href='/sedo-sec-dashboard';
+           // window.location.href='/sedo-dist-dashboard';
+           // window.location.href='/wasac-dashboard';
+           // window.location.href='/user-dashboard';
+
+        }
+    </script>
+</body>
+</html>

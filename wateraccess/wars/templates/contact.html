@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/contact_styles.css' %}">
+</head>
+<body>
+    <div class="logo">
+        <p><img src="{% static 'images/front-images/wars_logo.png'%}" alt="wars logo"></p>
+    </div>
+    <div class="overall-container">
+    <div class="container">
+        <div class="header">
+            <h2><i><img src="{% static 'images/front-images/upp-contact-mail--icon.png'%}" alt="contact"></i> System User Contact</h2>
+        </div>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="names">Names *</label>
+                <input type="text" id="names" name="names" placeholder="Enter your names" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+            </div>
+            <div class="form-group file-upload">
+                <label for="file">File</label>
+                <div class="contact-file">
+                     <input type="file" id="file" name="file" class="file" accept=".png, .jpg, .pdf, .docx" required><i><img src="{% static 'images/front-images/user-contact-upload-icon.png'%}" alt="uploadFile"></i>
+                </div>
+            </div>
+            <div class="button-group">
+                <a href="/" class="btn home">Go to Home</a>
+                <br />
+                <button type="submit" class="btn submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

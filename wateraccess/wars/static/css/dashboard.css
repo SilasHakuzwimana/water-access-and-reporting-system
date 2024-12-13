@@ -1,0 +1,154 @@
+/* General Layout */
+body {
+    font-family: 'EB Garamond', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: black;
+}
+
+.header .logo img {
+    height: 50px;
+}
+
+.header h1 {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.header h1 img {
+    margin-right: 10px;
+}
+
+/* Main Section */
+.main-content {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 25%;
+    background-color: #f9f9f9;
+    color: black;
+    padding: 20px 10px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar nav ul li i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.sidebar nav ul li:hover {
+    background-color: #f9f9f9;
+}
+.content{
+    width: 25%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    
+}
+/* Section Styling */
+.content .section-1{
+    display: flex;
+}
+.content .section-2{
+    display: flex;
+}
+.content .section-3,
+.content .section-4 {
+    flex: 1;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+
+.action-description {
+    border: 1px solid #ddd;
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.action-description:hover {
+    transform: scale(1.02);
+}
+
+.action-description h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.action-description p {
+    font-size: 14px;
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .content {
+        width: 100%;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content .section-1,
+    .content .section-2,
+    .content .section-3,
+    .content .section-4 {
+        max-width: 100%; /* Stacks sections vertically on smaller screens */
+    }
+}

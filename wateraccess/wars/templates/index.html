@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/front-images/wars_logo.png' %}" alt="WARS Logo">
+        </div>
+        <br>
+        <br>
+        <nav>
+            <ul class="nav-bar">
+                <li>
+                    <a href="#welcome">Home</a>
+                </li>
+                <li>
+                    <a href="#about">Who we are?</a>
+                </li>
+                <li>
+                    <a href="#mission">What we do?</a>
+                </li>
+                <li>
+                    <a href="#partners">Partners</a>
+                </li>
+                <li>
+                    <a href="/contact">Contact Us</a>
+                </li>
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
+
+        </nav>
+    </header>
+    <!-- nav menu complete -->
+
+    <div class="welcome" id="welcome">
+        <h1>Welcome to Wars</h1>
+        <p>Welcome to WARS!
+            <br>
+            Ensuring clean water access for all through innovative technology and community engagement. 
+            <br>
+            Our Water Access and Reporting System empowers communities to monitor, report, and improve water quality and accessibility.
+            <br>
+            <br>
+            <p id="learn">Get Started <b>Learn More</b></p></p>
+    </div>
+    <div class="about" id="about">
+        <h1>About Us</h1>
+        At  WARS,
+
+        we are dedicated to improving water access in underserved communities. Our team comprises experts in water
+        management, technology, and community outreach. We believe that everyone deserves access to clean and safe water, and we are committed to making that a reality.
+    </div>
+    <div class="mission" id="mission">
+        <h1>Our Mission</h1>
+      <p>
+            We provide a comprehensive Water Access and Reporting System designed to:
+
+            Monitor Water Quality: Use real-time data to ensure safe drinking water.
+            Empower Communities: Enable users to report issues and share feedback.
+            Drive Change: Analyze data to identify trends and improve water management strategies.
+            <br>
+            <br>
+            <br>
+            Key Features:
+            <br>
+            <br>
+            <ul>
+                <li>Interactive Mapping</li>
+                <li>Mobile Reporting</li>
+                <li>  Automated Alerts/Notifications.</li>
+                <li>Data Analytics</li>
+            </ul>
+            <br>
+            <br>
+            <b class="join">Join us in making a difference!</b>
+      </p>
+    </div>
+    <div class="partners" id="partners">
+        <div class="partners-text">
+            <h1>Our Valued Partners</h1>
+            <br>
+            We collaborate with various organizations, NGOs, and government agencies to enhance our impact. Together, we are working towards sustainable solutions for water access challenges.
+            <br>
+            <br>
+            <div class="water-access">
+                <img src="{%static 'images/front-images/water-access-logo.png' %}" alt="Water Access Logo">
+                <p>
+                   <p id="water"> Water Access Rwanda.</p>
+                    <br>
+                    "Partnering with Water Access Rwanda to enhance clean water solutions for every community."
+                </p>
+            </div>
+            <div class="partners-text">
+                <div class="wasac">
+                    <img src="{% static 'images/front-images/wasac-logo.png' %}" alt="WASAC Logo">
+                    <p>
+                        <p id="wasac">WASAC (Water and Sanitation Corporation).</p>
+                        <br>
+                        <br>
+                        "Collaborating with WASAC to ensure sustainable water and sanitation services across Rwanda."
+                    </p>
+                </div>
+            </div>
+            <b class="join">Join Us to Partner with Us!</b>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+    <br>
+    <br>
+    <footer>
+        <div>
+        </div>
+        <div class="social-media" id="footer">
+            <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+            <a href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a>
+        </div>
+        <div class="use-cases">
+            <h3>Use Cases</h3>
+            <ul>
+                <li>Water Access.</li>
+                <li>Reporting issues.</li>
+            </ul>
+        </div>
+        <div class="explore">
+            <h3>Explore</h3>
+            <ul>
+                <li>Ease navigation to taps near you.</li>
+                <li>Quick and reliable services.</li>
+            </ul>
+        </div>
+        <div class="resources">
+            <h3>Resources</h3>
+            <ul>
+                <li>WASAC Branches</li>
+                <li>Resources Library</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>Copyright &copy; <span id="year"></span> Water Access and Reporting System [WARS]. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'script/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARS - User System Dashboard</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{%{% static 'css/user_system_dashboard_styles.css' %}%}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+          <img src="images/front-images/wars_logo.png" alt="Water System Logo" class="logo">
+          <h1 class="title"><i><img src="images/user-images/user_dashboard-icon.svg" alt="Dashboard"></i>User System Dashboard</h1>
+        </header>
+    
+        <!-- Dashboard Content -->
+        <main class="dashboard">
+          <!-- Menu Items -->
+          <aside class="menu">
+            <ul>
+              <li>
+                <span class="icon">&#128100;</span> <!-- Profile Icon -->
+                Profile
+              </li>
+              <li>
+                <span class="icon">&#128221;</span> <!-- Providers Icon -->
+                TW Providers
+              </li>
+              <li>
+                <span class="icon">&#128200;</span> <!-- Reports Icon -->
+                Reports
+              </li>
+              <li>
+                <span class="icon">&#128337;</span> <!-- Cases Icon -->
+                Cases
+              </li>
+              <li>
+                <span class="icon">&#128222;</span> <!-- Help Desk Icon -->
+                Help Desk
+              </li>
+              <li>
+                <span class="icon">&#128276;</span> <!-- Notifications Icon -->
+                Notifications
+              </li>
+              <li>
+                <span class="icon">&#128682;</span> <!-- Logout Icon -->
+                Logout
+              </li>
+            </ul>
+          </aside>
+    
+          <!-- Details Section -->
+          <section class="details">
+            <h3>Welcome to User System Dashboard!</h3>
+            <br>
+            <br>
+            <p>Select an action below to get started:</p>
+            <div class="detail-card">
+              <h2>Profile</h2>
+              <p>View your profile settings.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Tap Water Provider</h2>
+              <p>Manage tap water providers within your cell.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Reports</h2>
+              <p>Access weekly reports.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Cases</h2>
+              <p>Manage water access cases within your cell.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Help Desk</h2>
+              <p>Contact support from your dashboard.</p>
+            </div>
+            <div class="detail-card">
+              <h2>Logout</h2>
+              <p>Securely exit from system.</p>
+            </div>
+          </section>
+        </main>
+      </div>
+</body>
+</html>

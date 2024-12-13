@@ -1,0 +1,7 @@
+<h1>Sectors</h1>
+<a href="{% url 'add_sector' %}">Add Sector</a>
+<ul>
+    {% for sector in sectors %}
+    <li>{{ sector.name }}</li>
+    {% endfor %}
+</ul>

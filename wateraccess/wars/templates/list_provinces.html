@@ -1,0 +1,7 @@
+<h1>Provinces</h1>
+<a href="{% url 'add_province' %}">Add Province</a>
+<ul>
+    {% for province in provinces %}
+    <li>{{ province.name }}</li>
+    {% endfor %}
+</ul>
