@@ -65,7 +65,7 @@ label {
     display: block;
 }
 
-input[type="text"], input[type="tel"], input[type="email"], textarea, input[type="file"] {
+input[type="text"], input[type="tel"], input[type="email"], textarea, input[type="file"],.form-label {
     font-family: 'EB Garamond', sans-serif;
     width: 100%;
     padding: 10px;
@@ -116,6 +116,7 @@ input:focus,textarea:focus{
     width: 48%;
     padding: 12px;
     font-size: 16px;
+    background-color: #0000ff;
     color: white;
     text-decoration: none;
     border: none;
@@ -130,4 +131,9 @@ input:focus,textarea:focus{
 
 .home {
     background-color: #0C21E4;
+    color: #1a0606;
+}
+.btn-home {
+    background-color: #0000ff !important;
+    color: #1a0606 !important;
 }

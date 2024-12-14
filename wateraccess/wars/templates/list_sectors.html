@@ -1,7 +1,24 @@
-<h1>Sectors</h1>
-<a href="{% url 'add_sector' %}">Add Sector</a>
-<ul>
-    {% for sector in sectors %}
-    <li>{{ sector.name }}</li>
-    {% endfor %}
-</ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sectors in {{ district.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/list_styles.css'%}">
+</head>
+<body>
+    <h1 id="top">Sectors in {{ district.name }}</h1>
+    <br>
+    <a href="{% url 'add_sector' district.id %}" class="button">Add Sector</a>
+    <br>
+    <ul>
+        {% for sector in sectors %}
+            <li><a href="{% url 'list_sectors' district.id %}">{{ sector.name }}</a></li>
+        {% empty %}
+            <li>No cells available.</li>
+        {% endfor %}
+    </ul>
+    <a href="#top" class="button">Top</a>
+</body>
+</html>

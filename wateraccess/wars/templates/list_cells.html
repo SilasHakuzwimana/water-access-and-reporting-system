@@ -1,7 +1,24 @@
-<h1>Cells</h1>
-<a href="{% url 'add_cell' %}">Add Cell</a>
-<ul>
-    {% for cell in cells %}
-    <li>{{ cell.name }}</li>
-    {% endfor %}
-</ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cells in {{ sector.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/list_styles.css'%}">
+</head>
+<body>
+    <h1>Cells in {{ cell.name }}</h1>
+    <br>
+    <a href="{% url 'add_cell' sector.id %}" class="button">Add Cell</a>
+    <br>
+    <ul>
+        {% for cell in cells %}
+            <li><a href="{% url 'list_cells' sector.id %}">{{ cell.name }}</a></li>
+        {% empty %}
+            <li>No cells available.</li>
+        {% endfor %}
+    </ul>
+    <br>
+</body>
+</html>

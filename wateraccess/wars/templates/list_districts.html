@@ -1,7 +1,21 @@
-<h1>Districts</h1>
-<a href="{% url 'add_district' %}">Add District</a>
-<ul>
-    {% for district in districts %}
-    <li>{{ district.name }}</li>
-    {% endfor %}
-</ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Districts in {{ province.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/list_styles.css'%}">
+</head>
+<body>
+    <h1>Districts in {{ province.name }}</h1>
+    <ul>
+        {% for district in districts %}
+            <li><a href="{% url 'list_sectors' district.id %}">{{ district.name }}</a></li>
+        {% empty %}
+            <li>No districts available.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'list_provinces' %}">Back to Provinces</a>
+</body>
+</html>

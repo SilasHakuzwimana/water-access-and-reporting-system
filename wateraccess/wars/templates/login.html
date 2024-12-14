@@ -8,45 +8,101 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static  'css/login_styles.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
 </head>
 <body>
-    <div class="logo">
-        <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water Access & Reporting System Logo">
+    <div class="logo text-center mb-4">
+        <img src="{% static 'images/front-images/wars_logo.png' %}" alt="Water Access & Reporting System Logo">
     </div>
-    <div class="overall-container">
     <div class="container">
-        <div class="header">
-            <h2><i><img src="{% static 'images/front-images/upp-login-icon.png'%}" alt="Login Icon"></i> System User Login</h2>
-        </div>
-        <form>
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" placeholder="Enter your registered email address" required>
+        <div class="card p-4">
+            <div class="header text-center mb-4">
+                <h2><i><img src="{% static 'images/front-images/upp-login-icon.png' %}" alt="Login Icon"></i> System User Login</h2>
             </div>
-            <div class="form-group">
-                <label for="password">Password *</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+            <form id="loginForm">
+                <div class="form-group mb-3">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your registered email address" required>
+                </div>
+                <div class="form-group mb-3 position-relative">
+                    <label for="password">Password *</label>
+                    <div class="input-group password-group">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        <span class="input-group-text toggle-password" id="togglePassword" style="cursor: pointer;">
+                            <i class="bi bi-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-secondary" onclick="redirectToIndex();">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
+                    <button type="submit" class="btn btn-primary" id="loginButton">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
+                </div>
+            </form>
+            <div class="spinner-wrapper" id="spinnerWrapper" style="display: none;">
+                <div class="spinner-border text-primary" id="loginSpinner" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
-            <div class="button-group">
-                <button type="button" class="btn btn-cancel" onclick="redirectToIndex();">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg'%}" alt="cancel"></i></button>
-                <button type="submit" class="btn btn-login" onclick="redirectToOtp();">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg'%}" alt=""></i></button>
+            <div class="links mt-3 text-center">
+                <p>Forgot your password? <a href="/password-reset">Reset Password</a></p>
+                <p>Don't have an account yet? <a href="/register">Register</a></p>
             </div>
-        </form>
-        <div class="links">
-            <p>Not yet remember password?<a href="/password-reset">Forgot Password</a></p>
-            <br>
-            <p>Don't have an account yet? <a href="/register">Register</a></p>
         </div>
     </div>
-</div>
-<script>
-    function redirectToIndex() {
-        window.location.href = "/";
-    }
-    function redirectToOtp(){
-        window.location.href = "/login-otp-verification";
-    }
-</script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function redirectToIndex() {
+            window.location.href = "/";
+        }
+
+        $("#loginForm").submit(function(event) {
+            event.preventDefault();
+            $("#loginSpinner").show();
+            $("#loginButton").prop("disabled", true);
+
+            var email = $("#email").val();
+            var password = $("#password").val();
+
+            $.ajax({
+                url: "/login/",
+                method: "POST",
+                data: {
+                    'email': email,
+                    'password': password,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Redirect to the OTP verification page
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert("Invalid login credentials");
+                    }
+                    $("#loginSpinner").hide();
+                    $("#loginButton").prop("disabled", false);
+                },
+                error: function() {
+                    alert("An error occurred while processing your request.");
+                    $("#loginSpinner").hide();
+                    $("#loginButton").prop("disabled", false);
+                }
+            });
+        });
+
+        // Password visibility toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.innerHTML = type === 'password'
+                ? '<i class="bi bi-eye-slash"></i>'
+                : '<i class="bi bi-eye"></i>';
+        });
+    </script>
 </body>
 </html>

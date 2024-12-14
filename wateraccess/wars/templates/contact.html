@@ -5,50 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WARS - Contact</title>
+
+    <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJt3W8Hq8mF5yHhXfhV+Nl2Eo5Q6+dghph3+x8lk/lDvs2LhpiXX6pzI5Pgg" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/contact_styles.css' %}">
 </head>
 <body>
-    <div class="logo">
-        <p><img src="{% static 'images/front-images/wars_logo.png'%}" alt="wars logo"></p>
-    </div>
-    <div class="overall-container">
-    <div class="container">
-        <div class="header">
-            <h2><i><img src="{% static 'images/front-images/upp-contact-mail--icon.png'%}" alt="contact"></i> System User Contact</h2>
+
+    <div class="container my-5">
+        <!-- Logo -->
+        <div class="text-center mb-4">
+            <img src="{% static 'images/front-images/wars_logo.png' %}" alt="WARS logo" class="img-fluid" style="max-width: 200px;">
         </div>
-        <form class="contact-form">
-            <div class="form-group">
+
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h2><i><img src="{% static 'images/front-images/upp-contact-mail--icon.png'%}" alt="contact" style="max-width: 30px;"></i> System User Contact</h2>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form" action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Name -->
+            <div class="form-group mb-3">
                 <label for="names">Names *</label>
-                <input type="text" id="names" name="names" placeholder="Enter your names" required>
+                <input type="text" id="names" name="names" class="form-control" placeholder="Enter your names" required>
             </div>
-            <div class="form-group">
+
+            <!-- Phone -->
+            <div class="form-group mb-3">
                 <label for="phone">Phone number *</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
             </div>
-            <div class="form-group">
+
+            <!-- Email -->
+            <div class="form-group mb-3">
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
             </div>
-            <div class="form-group">
+
+            <!-- Message -->
+            <div class="form-group mb-3">
                 <label for="message">Message *</label>
-                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                <textarea id="message" name="message" class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
             </div>
-            <div class="form-group file-upload">
+
+            <!-- File Upload -->
+            <div class="form-group mb-3">
                 <label for="file">File</label>
                 <div class="contact-file">
-                     <input type="file" id="file" name="file" class="file" accept=".png, .jpg, .pdf, .docx" required><i><img src="{% static 'images/front-images/user-contact-upload-icon.png'%}" alt="uploadFile"></i>
+                    <input type="file" id="file" name="file" class="form-control" accept=".png, .jpg, .pdf, .docx">
+                    <i><img src="{% static 'images/front-images/user-contact-upload-icon.png' %}" alt="uploadFile" style="max-width: 20px;"></i>
                 </div>
             </div>
-            <div class="button-group">
-                <a href="/" class="btn home">Go to Home</a>
-                <br />
-                <button type="submit" class="btn submit">Submit</button>
+
+            <!-- Button Group -->
+            <div class="button-group d-flex justify-content-between">
+                <a href="/" class="btn btn-secondary">Go to Home</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
-</div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybB5jCkF48vJXv47yXn+Z9zT7vJb6g5YVRJ0eGjcPfgfL9f5p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0Hj0ZDbM1cz1mATK3L/gP5LgmlP3w2jz6OaRaJczbcez3PiT" crossorigin="anonymous"></script>
 </body>
 </html>

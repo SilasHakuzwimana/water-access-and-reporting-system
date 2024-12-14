@@ -6,121 +6,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WARS - Admin System Dashboard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="{% static 'css/admin_styles.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css'%}">
+    <style>
+        nav{
+            width:40%;
+        }
+        .nav-item{
+            padding:10 20px 10 20 ;
+            margin:10 20 10 20;
+            margin-bottom: 20px;
+        }
+
+    </style>
 </head>
-<body>
-    <div class="container">
+<body class="bg-light">
+    <div class="container-fluid">
         <!-- Header -->
-        <header class="header">
-          <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="logo">
-          <h1 class="title"><span><img src="{% static 'images/sedo-sec-images/sedo-sec_dashboard-icon.svg'%}" alt="Dashboard icon"></span>Admin System Dashboard</h1>
+        <header class="header d-flex align-items-center justify-content-between p-3 text-black">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="me-3" style="width: 200px;">
+                <br>
+                <h1 class="h3 m-0">Admin System Dashboard</h1>
+            </div>
         </header>
-    
+
         <!-- Dashboard Content -->
-        <main class="dashboard">
-          <!-- Menu Items -->
-          <aside class="menu">
-            <ul>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin_profile-fill.png'%}" alt="profile" width="50px" height="50px"></span> <!-- Profile Icon -->
-                Profile
-              </li>
-              <li>
-                <span class="icon"><img src="{%static 'images/admin-images/admin-manage_users.svg'%}" alt="manage users"></span> <!-- manage users Icon -->
-                Manage users
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-login-logs.svg'%}"></span> <!-- login logs Icon -->
-                Login logs
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-user-messages-icon.svg'%}"></span> <!-- Cases Icon -->
-                User messages
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-reply-users.png'%}"> </span> <!-- Reply users Icon -->
-                Reply users
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-notifications.svg'%}"></span> <!-- Notifications Icon -->
-                Notifications
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-helpdesk-icon.svg'%}"></span> <!-- Notifications Icon -->
-                Help desk
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-report-icon.svg'%}"></span> <!-- Notifications Icon -->
-                Reports
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-contact-sedos-icon.png'%}"></span> <!-- Notifications Icon -->
-                Contact SEDOs
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-contact-wasac.svg'%}"></span> <!-- Notifications Icon -->
-                Contact WASAC
-              </li>
-              <li>
-                <span class="icon"><img src="{% static 'images/admin-images/admin-logout.png'%}" alt="profile" width="50px" height="50px"></span> <!-- Logout Icon -->
-                Logout
-              </li>
-            </ul>
-          </aside>
-    
-          <!-- Details Section -->
-          <section class="details">
-            <h3>Welcome to Admin Dashboard!</h3>
-            <br>
-            <br>
-            <p>Select an action below to get started:</p>
-            <div class="detail-card">
-              <h2>Profile</h2>
-              <p>View your profile settings.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Manage users</h2>
-              <p>View and manage all users within the system.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Login logs</h2>
-              <p>Access  all login attempts from users.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Messages</h2>
-              <p>View all users messages and  contact them.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Reply users</h2>
-              <p>Reply to all users messages.</p>
-            </div>
-            <div class="detail-card">
-                <h2>Notifications</h2>
-                <p>Read all notifications.</p>
-            </div>
-            <div class="detail-card">
-                <h2>Help desk</h2>
-                <p>Contact support from dev now.</p>
-            </div>
-            <div class="detail-card">
-                <h2>Reports</h2>
-                <p>Generate reports regarding system actions.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Contact SEDOs</h2>
-              <p>Message all SEDOs for any incoming request.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Contact WASAC</h2>
-              <p>Contact WASAC for issue arises.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Logout</h2>
-              <p>Leave the system securely.</p>
-            </div>
-          </section>
-        </main>
-      </div>
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-white sidebar p-4">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <img src="{% static 'images/admin-images/admin_profile-fill.png'%}" width="20px" alt="profile" class="icon"> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-manage_users.svg'%}" width="20px" alt="manage users" class="icon"> Manage Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-login-logs.svg'%}" width="20px" class="icon"> Login Logs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-user-messages-icon.svg'%}" width="20px" class="icon"> User Messages
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-reply-users.png'%}" width="20px" class="icon" width="50px"> Reply Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-notifications.svg'%}" width="20px" class="icon"> Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-helpdesk-icon.svg'%}" width="20px" class="icon"> Help Desk
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-report-icon.svg'%}" width="20px" class="icon"> Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-contact-sedos-icon.png'%}" width="20px" class="icon"> Contact SEDOs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="{% static 'images/admin-images/admin-contact-wasac.svg'%}" width="20px"class="icon"> Contact WASAC
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <img src="{% static 'images/admin-images/admin-logout.png'%}" width="20px" alt="logout" class="icon"> Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
+                <div class="pt-3">
+                    <h2>Welcome to Admin Dashboard!</h2>
+                    <p class="lead">Select an action below to get started:</p>
+
+                    <!-- Row for the detail cards -->
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Profile</h5>
+                                    <p class="card-text">View your profile settings.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Manage Users</h5>
+                                    <p class="card-text">View and manage all users within the system.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Login Logs</h5>
+                                    <p class="card-text">Access all login attempts from users.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Messages</h5>
+                                    <p class="card-text">View all users messages and contact them.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reply Users</h5>
+                                    <p class="card-text">Reply to all users' messages.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Notifications</h5>
+                                    <p class="card-text">Read all notifications.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Help Desk</h5>
+                                    <p class="card-text">Contact support from dev now.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reports</h5>
+                                    <p class="card-text">Generate reports regarding system actions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Contact SEDOs</h5>
+                                    <p class="card-text">Message all SEDOs for any incoming request.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Contact WASAC</h5>
+                                    <p class="card-text">Contact WASAC for any issue arises.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Logout</h5>
+                                    <p class="card-text">Leave the system securely.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

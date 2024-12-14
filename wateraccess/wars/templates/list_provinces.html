@@ -1,7 +1,22 @@
-<h1>Provinces</h1>
-<a href="{% url 'add_province' %}">Add Province</a>
-<ul>
-    {% for province in provinces %}
-    <li>{{ province.name }}</li>
-    {% endfor %}
-</ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provinces in Rwanda</title>
+    <link rel="stylesheet" href="{% static 'css/list_styles.css'%}">
+</head>
+<body>
+    <h1>Provinces in Rwanda</h1>
+    <ul>
+        {% for province in provinces %}
+            <li><a href="{% url 'list_provinces' %}">{{ province.name }}</a></li>
+        {% empty %}
+            <li>No cells available.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'add_province'%}">Add Province</a>
+</body>
+</html>

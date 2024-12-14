@@ -1,0 +1,234 @@
+* {
+    font-family: 'EB Garamond', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'EB Garamond', sans-serif;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+body .header {
+    background-color: #f0f0f0;
+    width: 10em;
+    height: 10em;
+}
+
+body .header img {
+    padding: 10px 20px;
+    width: 10%;
+    height: 10%;
+}
+
+.overall-container {
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 16px 24px;
+    background-color: #fff;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #D9D9D9;
+    font-size: 36px;
+    border-radius: 5px;
+    color: #18BBB1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form-header i img {
+    width: 3em;
+    height: 3.5em;
+}
+
+.form-section {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="tel"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+select option {
+    width: 100%;
+}
+
+input:focus, 
+select:focus {
+    outline: none;
+    border-color: #18BBB1;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #2CC9BF;
+}
+
+.btn-secondary {
+    background-color: #0C21E4;
+}
+
+.file {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.file span {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.file span img {
+    width: 2.5em;
+    height: 2.5em;
+    opacity: 0.7;
+}
+.spinner-border {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+/* Center the spinner and overlay it on the form */
+#register-spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050; /* Overlay the spinner above other elements */
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.4rem; /* Thicker border for better visibility */
+}
+
+/* Optional: Overlay the form with a translucent background during submission */
+.form-container::before {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent white overlay */
+    z-index: 1040; /* Under the spinner but above form elements */
+}
+.form-container.loading::before {
+    display: block;
+}
+.form-container.loading #register-spinner {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        flex-direction: column;
+    }
+
+    .overall-container {
+        width: 90%;
+        padding: 12px 18px;
+    }
+
+    .form-header {
+        font-size: 24px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+
+    .overall-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-header {
+        font-size: 18px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

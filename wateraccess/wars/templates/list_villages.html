@@ -1,7 +1,22 @@
-<h1>Villages</h1>
-<a href="{% url 'add_village' %}">Add Village</a>
-<ul>
-    {% for village in villages %}
-    <li>{{ village.name }}</li>
-    {% endfor %}
-</ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villages in {{ cell.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/list_styles.css'%}">
+</head>
+<body>
+    <h1>Villages in {{ cell.name }}</h1>
+    <ul>
+        {% for village in villages %}
+            <li><a href="{% url 'list_villages' cell.id %}">{{ village.name }}</a></li>
+        {% empty %}
+            <li>No villages available.</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{% url 'add_village' cell.id %}">Add Village</a>
+</body>
+</html>

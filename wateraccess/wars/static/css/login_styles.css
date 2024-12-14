@@ -112,6 +112,59 @@ input:focus{
 .links a:hover {
     text-decoration: underline;
 }
+/* Ensure the password field and toggle icon look consistent */
+.password-group .form-control {
+    border-right: none; /* Prevent border overlap with the toggle button */
+}
+
+.password-group .toggle-password {
+    background-color: #ffffff; /* Match input field background */
+    border-left: none; /* Remove border for seamless integration */
+    cursor: pointer;
+}
+
+.password-group .toggle-password i {
+    font-size: 1.25rem; /* Adjust icon size for better visibility */
+    color: #6c757d; /* Icon color to match the theme */
+    transition: color 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.password-group .toggle-password:hover i {
+    color: #000; /* Darker color on hover */
+}
+
+/* Ensure input group aligns properly */
+.input-group {
+    align-items: center;
+}
+/* Wrapper for centering the spinner */
+.spinner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050; /* Ensure it appears above other elements */
+}
+
+/* Adjust spinner size */
+#loginSpinner {
+    width: 4rem; /* Increase size */
+    height: 4rem; /* Increase size */
+    border-width: 0.3rem; /* Thicker spinner border */
+}
+
+/* Optional: Add a dimmed background when the spinner is visible */
+.spinner-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Light overlay */
+    z-index: -1; /* Place it behind the spinner */
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 20px;

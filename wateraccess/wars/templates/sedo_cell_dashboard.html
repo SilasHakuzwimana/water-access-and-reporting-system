@@ -6,85 +6,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WARS - SEDO-Cell System Dashboard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/sedo_cell_dashboard.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/sedo_cell_dashboard.css'%}">
 </head>
-<body>
-    <div class="container">
+<body class="bg-light">
+    <div class="container-fluid">
         <!-- Header -->
-        <header class="header">
-          <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="logo">
-          <h1 class="title"><i><img src="{% static 'images/sedo-cell-images/sedo-cell_dashboard-icon.png'%}" alt="Dashboard icon"></i>SEDO-CELL System Dashboard</h1>
+        <header class="d-flex align-items-center justify-content-between p-3 border-bottom">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="me-3" style="width: 200px;">
+                <h1 class="h3 m-0">SEDO-CELL System Dashboard</h1>
+            </div>
         </header>
 
         <!-- Dashboard Content -->
-        <main class="dashboard">
-          <!-- Menu Items -->
-          <aside class="menu">
-            <ul>
-              <li>
-                <span class="icon"><img src="{% static 'images/sedo-cell-images/sedo-cell_profile-icon.png'%}" alt="Profile"></span> <!-- Profile Icon -->
-                Profile
-              </li>
-              <li>
-                <span class="icon">&#128221;</span> <!-- Providers Icon -->
-                TW Providers
-              </li>
-              <li>
-                <span class="icon">&#128200;</span> <!-- Reports Icon -->
-                Reports
-              </li>
-              <li>
-                <span class="icon">&#128337;</span> <!-- Cases Icon -->
-                Cases
-              </li>
-              <li>
-                <span class="icon">&#128222;</span> <!-- Help Desk Icon -->
-                Help Desk
-              </li>
-              <li>
-                <span class="icon">&#128276;</span> <!-- Notifications Icon -->
-                Notifications
-              </li>
-              <li>
-                <span class="icon">&#128682;</span> <!-- Logout Icon -->
-                Logout
-              </li>
-            </ul>
-          </aside>
-    
-          <!-- Details Section -->
-          <section class="details">
-            <h3>Welcome to SEDO-SEC Dashboard!</h3>
-            <br>
-            <br>
-            <p>Select an action below to get started:</p>
-            <div class="detail-card">
-              <h2>Profile</h2>
-              <p>View your profile settings.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Tap Water Provider</h2>
-              <p>Manage tap water providers within your cell.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Reports</h2>
-              <p>Access weekly reports.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Cases</h2>
-              <p>Manage water access cases within your cell.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Help Desk</h2>
-              <p>Contact support from your dashboard.</p>
-            </div>
-            <div class="detail-card">
-              <h2>Logout</h2>
-              <p>Securely exit from system.</p>
-            </div>
-          </section>
-        </main>
-      </div>
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-target="profile" id="profile-link">
+                            <img src="{% static 'images/sedo-cell-images/sedo-cell_profile-icon.png'%}" alt="Profile" class="me-2" style="width: 20px;"> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="providers" id="providers-link">
+                            <i class="bi bi-people"></i> Tap Water Providers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="reports" id="reports-link">
+                            <i class="bi bi-bar-chart"></i> Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="cases" id="cases-link">
+                            <i class="bi bi-file-earmark"></i> Cases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="helpdesk" id="helpdesk-link">
+                            <i class="bi bi-question-circle"></i> Help Desk
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="notifications" id="notifications-link">
+                            <i class="bi bi-bell"></i> Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 col-lg-10 ms-sm-auto px-4" id="main-content">
+                <div class="pt-3">
+                    <h2>Welcome to SEDO-CELL Dashboard!</h2>
+                    <p>Select an action from the left menu to get started.</p>
+
+                    <!-- Row for the detail cards -->
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Profile</h5>
+                                    <p class="card-text">View your profile settings.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tap Water Providers</h5>
+                                    <p class="card-text">Manage tap water providers within your cell.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reports</h5>
+                                    <p class="card-text">Access weekly reports.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cases</h5>
+                                    <p class="card-text">Manage water access cases within your cell.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Help Desk</h5>
+                                    <p class="card-text">Contact support from your dashboard.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card detail-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Logout</h5>
+                                    <p class="card-text">Securely exit from system.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap and JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle dynamic content loading
+            $('.nav-link').on('click', function (e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and add to clicked link
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+                
+                // Determine the target content to load
+                const target = $(this).data('target');
+
+                // Fetch and load the corresponding content
+                $('#main-content').load(`/dashboard/${target}/`);
+            });
+        });
+    </script>
 </body>
 </html>

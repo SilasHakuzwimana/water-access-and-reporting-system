@@ -1,207 +1,197 @@
-*{
+* {
     font-family: 'EB Garamond', sans-serif;
     font-size: 16px;
 }
+
 body {
     font-family: 'EB Garamond', sans-serif;
     align-items: center;
     display: flex;
     flex-direction: column;
-  }
-  body .header {
+    margin: 0;
+    padding: 0;
+}
+
+body .header {
     background-color: #f0f0f0;
     width: 10em;
     height: 10em;
-  }
-  body .header img{
+}
+
+body .header img {
     padding: 10px 20px;
     width: 20%;
     height: 20%;
-  }
-  .overall-container{
+}
+
+.overall-container {
     width: 80%;
     max-width: 800px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 16px 24px;
     background-color: #fff;
-  }
-  .form-container {
+}
+
+.form-container {
+    width: 100%;
     max-width: 600px;
     margin: auto;
-    padding: 20px;
+    padding: 20px 30px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .form-header {
+.form-header {
     text-align: center;
     margin-bottom: 20px;
     padding: 10px 20px;
     background-color: #D9D9D9;
     font-size: 36px;
-    width: auto;
-    height: auto 0;
     border-radius: 5px;
     color: #18BBB1;
-    gap: 2px;
-  }
-  .form-header i{
-    gap: 10px;
     display: flex;
-  }
-  .form-header i img{
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form-header i img {
     width: 3em;
-    height:3.5em;
-    position: absolute;
-  }
-  .form-section {
+    height: 3.5em;
+}
+
+.form-section {
     margin-bottom: 20px;
-  }
-  
-  .form-group {
+    padding: 10px 20px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.form-group {
     margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
     margin-bottom: 5px;
     font-weight: bold;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type='file'],
-  input[type='tel'],
-  input[type="date"],
-  select {
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="tel"],
+input[type="date"],
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  input:focus{
+    box-sizing: border-box;
+}
+
+select option {
+    width: 100%;
+}
+
+input:focus, 
+select:focus {
     outline: none;
     border-color: #18BBB1;
- }
-  .button-group {
+}
+
+.button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-  }
-  .btn {
+}
+
+.btn {
     width: 48%;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     color: white;
-    }
-    .btn span{
-        gap:20px;
-    }
-  .btn-primary {
+}
+
+.btn-primary {
     background-color: #2CC9BF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .btn-secondary {
+}
+
+.btn-secondary {
     background-color: #0C21E4;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .file {
+}
+
+.file {
     display: flex;
     align-items: center;
     position: relative;
-  }
+}
 
-  .file input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-
-  .file i {
+.file i {
     position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;  /* Prevents the icon from blocking file input clicks */
-  }
+    pointer-events: none;
+}
 
-  .file i img {
+.file i img {
     width: 2.5em;
     height: 2.5em;
-    opacity: 0.7;  /* Slight transparency for subtlety */
-  }
-  @media (max-width: 768px) {
-    body {
-      font-size: 14px;
-      flex-direction: column;
-    }
-  
-    .overall-container {
-      width: 90%;
-      padding: 12px 18px;
-    }
-  }
-  /* For tablets and smaller devices (less than 768px) */
+    opacity: 0.7;
+}
+
 @media (max-width: 768px) {
     body {
-    font-size: 14px; /* Reduce base font size */
+        font-size: 14px;
+        flex-direction: column;
     }
 
     .overall-container {
-    width: 90%; /* Make container take up more relative width */
-    padding: 12px 18px; /* Reduce padding for smaller screens */
+        width: 90%;
+        padding: 12px 18px;
     }
 
     .form-header {
-    font-size: 24px; /* Reduce header font size */
+        font-size: 24px;
     }
 
     .form-group {
-    margin-bottom: 10px; /* Reduce spacing between form elements */
+        margin-bottom: 10px;
     }
 
     .btn {
-    padding: 8px 12px; /* Reduce button padding */
+        padding: 8px 12px;
     }
 }
 
-/* For smaller phones (less than 480px) */
 @media (max-width: 480px) {
     body {
-    font-size: 12px; /* Further reduce font size */
+        font-size: 12px;
     }
 
     .overall-container {
-    width: 100%; /* Container takes full width */
-    padding: 10px; /* Minimal padding */
+        width: 100%;
+        padding: 10px;
     }
 
     .form-header {
-    font-size: 18px; /* Smaller header font size */
+        font-size: 18px;
     }
 
     .button-group {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .btn {
-    width: 100%; /* Buttons take full width */
-    margin-bottom: 10px; /* Add spacing between stacked buttons */
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

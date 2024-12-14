@@ -1,4 +1,8 @@
 {
     "iis.configDir": "",
-    "gitConfigUser.selectedProfile": "Silas325"
+    "gitConfigUser.selectedProfile": "Silas325",
+    "python.pythonPath": "water\\Scripts\\python.exe",
+    "cSpell.words": [
+        "regist"
+    ]
 }
