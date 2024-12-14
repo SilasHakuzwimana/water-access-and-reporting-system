@@ -5,126 +5,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WARS - User Registration</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Load Fonts and Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/register_styles.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.0/css/countrySelect.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.0/js/countrySelect.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <style>
+        .spinner-border {
+            display: none;
+        }
+        footer {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div>
-            <img src="{% static 'images/front-images/wars_logo.png'%}" alt="System logo">
+        <div class="text-center">
+            <img src="{% static 'images/front-images/wars_logo.png' %}" alt="System logo" loading="lazy">
         </div>
     </header>
-    <div class="overall-container">
-        <div class="form-container">
-        <h2 class="form-header"><i><img src="{% static 'images/front-images/add-user-icon.png'%}" alt="User register"></i> System User Registration</h2>
-        <form>
-          <div class="form-section">
-            <div class="form-group">
-              <label for="name">Names *</label>
-              <input type="text" id="name" placeholder="Enter your legal names" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" placeholder="Enter a valid email address" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="nationalId">National ID/Passport No *</label>
-            <input type="text" name="nationalId" id="nationalId" placeholder="Enter valid ID No/Passport No" maxlength="16" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="tel" name="phone" id="phone" placeholder="Enter your valid phone number" maxlength="15" required>
-          </div>
-          <div class="form-group">
-            <label for="dob">Date of Birth *</label>
-            <input type="date" id="dob" name="dob" required>
-          </div>
-          <div class="form-group">
-            <label for="gender">Gender *</label>
-            <select id="gender" name="gender" required>
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="nationality">Nationality *</label>
-            <input type="text" id="nationality" name="nationality" placeholder="Enter your nationality" required>
-          </div>
-          <div class="form-group">
-            <label for="emergencyContact">Emergency Contact *</label>
-            <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Enter emergency contact number" required>
-          </div>
-          <div class="form-section">
-            <h3>Select Your Location</h3>
-            <div class="form-group">
-              <label for="country">Country *</label>
-              <select id="country" required>
-                <option value="">Select your country</option>
-                <option value="RWanda">Rwanda</option>
-              </select>
-            </div>
-            <div class="form-group">
-                <label for="province">Province *</label>
-                <select id="province" required>
-                    <option value="">Select Province</option>
-                    <option value="Eastern">Eastern Province</option>
-                    <option value="Kigali">Kigali Province</option>
-                    <option value="Northern">Northern Province</option>
-                    <option value="Southern">Southern Province</option>
-                    <option value="Western">Western Province</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="district">District *</label>
-                <select id="district" required>
-                    <option value="">Select District</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="sector">Sector *</label>
-                <select id="sector" required>
-                    <option value="">Select Sector</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="cell">Cell *</label>
-                <select name="cell" id="cell">
-                    <option value="">Select Cell</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="village">Village *</label>
-                <select name="village" id="village">
-                    <option value="">Select Village</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="profile">Upload your profile picture *</label>
-                <div class="file">
-                  <input type="file" id="profile" name="profile" placeholder="Upload your picture (10 MB)" required />
-                  <i><img src="{% static 'images/front-images/upload-cloud-prof-pic.svg'%}" alt="Upload profile picture"></i>
-                </div>
-              </div>
-          </div>
 
-          <div class="button-group">
-            <button type="button" class="btn btn-secondary" onclick="redirectToLogin();">Cancel <span> <img src="{% static 'images/front-images/regist-user-cancel-icon.svg'%}"></span></button>
-            <button type="submit" class="btn btn-primary" onclick="redirectToRegOtp();">Register User <span> <img src="{% static 'images/front-images/regist-user-plus.svg'%}"></span> </button>
-          </div>
-        </form>
-      </div>
+    <div class="container mt-4">
+        <div class="form-container">
+            <h2 class="form-header">
+                <span><img src="{% static 'images/front-images/add-user-icon.png' %}" alt="User register"></span>
+                System User Registration
+            </h2>
+
+            {% if messages %}
+                <div class="alert alert-success" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form id="registrationForm" method="post" enctype="multipart/form-data" action="{% url 'register_user' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="name">Names *</label>
+                    <input type="text" id="name" name="names" class="form-control" placeholder="Enter your legal names" required aria-label="Full Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter a valid email address" required aria-label="Email Address">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your valid phone number" maxlength="15" required aria-label="Phone Number">
+                </div>
+
+                <div class="form-group">
+                    <label for="nationalId">National ID/Passport No *</label>
+                    <input type="text" id="nationalId" name="nationalId" class="form-control" placeholder="Enter valid ID No/Passport No" maxlength="16" required aria-label="National ID or Passport Number">
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth *</label>
+                    <input type="date" id="dob" name="dob" class="form-control" required aria-label="Date of Birth">
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender *</label>
+                    <select id="gender" name="gender" class="form-control" required aria-label="Gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nationality">Nationality *</label>
+                    <select id="nationality" name="nationality" class="form-control" required aria-label="Nationality">
+                        <option value="Rwandan">Rwandan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Contact *</label>
+                    <input type="tel" id="emergencyContact" name="emergencyContact" class="form-control" placeholder="Enter emergency contact number" required aria-label="Emergency Contact">
+                </div>
+
+                <div class="form-section">
+                    <h3>Select Your Location</h3>
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" name="country" class="form-control" required>
+                            <option value="Rwanda">Rwanda</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="province">Province *</label>
+                        <select id="province" name="province" class="form-control" required>
+                            <option value="" data-name="">Select Province</option>
+                        </select>
+                        <div class="spinner-border text-primary" id="province-spinner" role="status"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="district">District *</label>
+                        <select id="district" name="district" class="form-control" required>
+                            <option value="" data-name="">Select District</option>
+                        </select>
+                        <div class="spinner-border text-primary" id="district-spinner" role="status"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sector">Sector *</label>
+                        <select id="sector" name="sector" class="form-control" required>
+                            <option value="" data-name="">Select Sector</option>
+                        </select>
+                        <div class="spinner-border text-primary" id="sector-spinner" role="status"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cell">Cell *</label>
+                        <select id="cell" name="cell" class="form-control" required>
+                            <option value="" data-name="">Select Cell</option>
+                        </select>
+                        <div class="spinner-border text-primary" id="cell-spinner" role="status"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="village">Village *</label>
+                        <select id="village" name="village" class="form-control" required>
+                            <option value="" data-name="">Select Village</option>
+                        </select>
+                        <div class="spinner-border text-primary" id="village-spinner" role="status"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile">Upload Your Profile Picture *</label>
+                    <div class="input-group">
+                        <input type="file" id="profile" name="profile_pic" class="form-control" style="border-right: none;" required aria-label="Profile Picture">
+                        <span class="input-group-text" style="border-left: none; background-color: white;">
+                            <img src="{% static 'images/front-images/upload-cloud-prof-pic.svg' %}" alt="Upload profile picture">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="redirectToLogin();">Cancel &nbsp; <span> <img src="{% static 'images/front-images/regist-user-cancel-icon.svg'%}"></span> &nbsp; </button>
+                    <button type="submit" id="registerButton" class="btn btn-primary">Register User <span> <img src="{% static 'images/front-images/regist-user-plus.svg'%}"></span> </button>
+                    <div class="spinner-border text-light" id="register-spinner" role="status"></div>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <footer class="text-center mt-4">
+        {% now "Y" as current_year %}
+        <p>&copy; {{ current_year }} WATER ACCESS AND REPORTING SYSTEM (WARS). All rights reserved.</p>
+    </footer>
+
     <script>
-        function redirectToLogin(){
+        $(document).ready(function () {
+            // Populate provinces dropdown on page load
+            $.get('/get-provinces/', function (data) {
+                let options = '<option value="">Select Province</option>';
+                data.forEach(function (province) {
+                    options += `<option value="${province.name}">${province.name}</option>`;
+                });
+                $('#province').html(options);
+            }).fail(function() {
+                alert("Failed to load provinces. Please try again later.");
+            });
+        
+            // Location-dependent dropdowns
+            ['province', 'district', 'sector', 'cell', 'village'].forEach(function(level, index, array) {
+                $(`#${level}`).change(function () {
+                    const selectedName = $(this).val(); // Get the name of the selected location
+                    const nextLevel = array[index + 1];
+        
+                    if (nextLevel) {
+                        const spinnerId = `#${nextLevel}-spinner`;
+                        $(`#${nextLevel}`).html('<option value="">Loading...</option>');
+                        $(spinnerId).show();
+        
+                        if (selectedName) {
+                            $.get(`/get-${nextLevel}s/${selectedName}/`, function (data) {
+                                let options = `<option value="">Select ${nextLevel.charAt(0).toUpperCase() + nextLevel.slice(1)}</option>`;
+                                data.forEach(function (item) {
+                                    options += `<option value="${item.name}">${item.name}</option>`;
+                                });
+                                $(`#${nextLevel}`).html(options);
+                                $(spinnerId).hide();
+                            }).fail(function() {
+                                alert(`Failed to load ${nextLevel}s. Please try again later.`);
+                                $(spinnerId).hide();
+                            });
+                        }
+                    }
+                });
+            });
+        
+            $('#registrationForm').submit(function() {
+                $('#registerButton').prop('disabled', true);
+                $('#register-spinner').show();
+            });
+        });        
+
+        function redirectToLogin() {
             window.location.href = '/login';
-        }
-        function redirectToRegOtp(){
-            window.location.href = '/registration-otp-verification';
         }
     </script>
 </body>
