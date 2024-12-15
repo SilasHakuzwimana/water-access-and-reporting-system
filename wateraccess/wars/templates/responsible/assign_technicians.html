@@ -1,0 +1,20 @@
+{% extends 'responsible/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Assign Technicians</h2>
+    {% if technicians %}
+    <ul class="list-group">
+        {% for technician in technicians %}
+        <li class="list-group-item">
+            <h5>{{ technician.user.username }}</h5>  <!-- Display Technician's Username -->
+            <p>Expertise: {{ technician.expertise }}</p>  <!-- Display Technician's Expertise -->
+            <a href="#" class="btn btn-primary">Assign</a>  <!-- Add logic to assign the technician -->
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No technicians available for assignment.</p>
+    {% endif %}
+</div>
+{% endblock %}

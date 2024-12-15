@@ -5,17 +5,17 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
+body, .container-fluid {
     font-family: 'EB Garamond', sans-serif;
     background-color: #f4f4f9;
     color: #333;
+    height: auto;
+    min-height: 100vh; /* Ensures the body at least takes the full screen height */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 180vh;
 }
-
 /* Container */
 .container {
     width: 100%;

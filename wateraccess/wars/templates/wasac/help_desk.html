@@ -1,0 +1,16 @@
+<!-- Help Desk Template -->
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">Help Desk</div>
+    <div class="card-body">
+        <p>Contact our support team for assistance.</p>
+        <form>
+            <div class="mb-3">
+                <label for="query" class="form-label">Your Query</label>
+                <textarea class="form-control" id="query" rows="3" placeholder="Type your query here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit Query</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

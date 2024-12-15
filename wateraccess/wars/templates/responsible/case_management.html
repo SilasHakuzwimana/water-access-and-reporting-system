@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Case Management</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Case ID</th>
+                <th scope="col">Description</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in cases %}
+            <tr>
+                <td>{{ case.id }}</td>
+                <td>{{ case.description }}</td>
+                <td>{{ case.status }}</td>
+                <td>
+                    <a href="{% url 'escalate_case' case.id %}" class="btn btn-warning">Escalate</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

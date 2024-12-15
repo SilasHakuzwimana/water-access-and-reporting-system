@@ -1,0 +1,28 @@
+<!-- Taps & Owners Template -->
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-secondary text-white">Taps & Owners</div>
+    <div class="card-body">
+        <p>Manage and view tap and owner information here.</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tap ID</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12345</td>
+                    <td>John Doe</td>
+                    <td>Active</td>
+                    <td><button class="btn btn-sm btn-warning">Edit</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

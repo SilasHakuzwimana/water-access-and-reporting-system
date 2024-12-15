@@ -1,0 +1,23 @@
+<h2>Manage Users</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Names</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.names }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

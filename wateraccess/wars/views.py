@@ -1,21 +1,23 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.utils.timezone import localtime, now
 from datetime import timedelta, datetime
-from django.contrib.auth.hashers import make_password,Argon2PasswordHasher,check_password
-import random, string,logging
+from django.contrib.auth.hashers import Argon2PasswordHasher,check_password
+import random
+import string
+import logging
 from django.core.exceptions import ValidationError
 from django.utils.crypto import get_random_string
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.db import IntegrityError, transaction
+from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Province, District, Sector, Cell, Village,warsUser, Location, Password, userProfile
-from .forms import ContactMessageForm, ProvinceForm, DistrictForm, SectorForm, CellForm, RegistrationForm, VillageForm
+from .forms import ContactMessageForm, ProvinceForm, DistrictForm, SectorForm, CellForm, VillageForm
 
 # Create your views here.
 
@@ -39,33 +41,219 @@ def password_update(request):
     return render(request, 'password_update.html')
 def password_reset_confirm(request):
     return render(request, 'password_reset_confirm.html')
-def login_otp_verification(request):
-    return render(request, 'login_otp_verification.html')
 def register_otp_verification(request):
     return render(request, 'reg_otp_verification.html')
 def admin_dashboard(request):
     return render(request, 'admin_dashboard.html')
 def sedo_cell_dashboard(request):
     return render(request, 'sedo_cell_dashboard.html')
-def sedo_sec_dashboard(request):
-    return render(request, 'sedo_sec_dashboard.html')
-def sedo_dist_dashboard(request):
-    return render(request, 'sedo_dist_dashboard.html')
+def technician_dashboard(request):
+    return render(request, 'technician_dashboard.html')
+def responsible_dashboard(request):
+    return render(request, 'responsible_dashboard.html')
 def wasac_dashboard(request):
     return render(request, 'wasac_dashboard.html')
 
 def user_dashboard(request):
-    return render(request, 'user_system_dashboard.html')
+    return render(request, 'customer_dashboard.html')
+
+# Wasac (Admin) system dashboard views
+
+def profi_view(request):
+    # Assuming request.user is linked to warsUser
+    wars_user = get_object_or_404(warsUser, email=request.user.email)
+    profile = get_object_or_404(userProfile, user=wars_user)
+    return render(request, 'admin_views/profile.html', {'profile': profile})
+
+def manage_users_view(request):
+    return render(request, 'admin_views/manage_users.html')
+
+def case_categories_view(request):
+    return render(request, 'admin_views/case_categories.html')
+
+def reported_cases_view(request):
+    return render(request, 'admin_views/reported_cases.html')
+
+def branch_overview_view(request):
+    return render(request, 'admin_views/branch_overview.html')
+
+def reports_view(request):
+    return render(request, 'admin_views/reports.html')
+
+def notifications_view(request):
+    return render(request, 'admin_views/notifications.html')
+
+def help_desk_view(request):
+    return render(request, 'admin_views/helpdesk.html')
+
+def logout_view(request):
+    # Add logout logic here (e.g., Django's `logout()` function)
+    return render(request, 'admin_views/logout.html')
+
+
+# Wasac branch system dashboard views
+
+# View for the main dashboard
+def branch_dashboard(request):
+    return render(request, 'branch/branch_dashboard.html')
+
+# Views for each section
+def branch_management(request):
+    return render(request, 'branch/branch_management.html')
+
+def tap_monitoring(request):
+    return render(request, 'branch/tap_monitoring.html')
+
+def case_assignment(request):
+    return render(request, 'branch/case_assignment.html')
+
+def performance_reports(request):
+    return render(request, 'branch/performance_reports.html')
+
+
+# View for the Responsible Dashboard main page
+def dashboard(request):
+    return render(request, 'responsible/dashboard.html')
+
+def assign_technicians(request):
+    # Fetch all technicians
+    technicians = userProfile.objects.filter(role='Technician')  # Get all users with the 'Technician' role
+
+    return render(request, 'responsible/assign_technicians.html', {'technicians': technicians})
+
+# View for case management
+def case_management(request):
+    cases = Case.objects.all()  # noqa: F821
+    return render(request, 'responsible/case_management.html', {'cases': cases})
+
+# View for escalating cases
+def escalate_case(request, case_id):
+    case = Case.objects.get(id=case_id)  # noqa: F821
+    # Logic for escalating the case
+    case.status = 'Escalated'
+    case.save()
+    return JsonResponse({'status': 'success', 'message': f'Case {case_id} has been escalated.'})
+
+# View for generating reports
+def generate_reports(request):
+    reports = Report.objects.all()  # noqa: F821
+    return render(request, 'responsible/generate_reports.html', {'reports': reports})
+
+
+
+def profil_view(request):  # noqa: F811
+    return render(request, 'wasac/profile.html')
+
+def taps_owners_view(request):
+    return render(request, 'wasac/taps_owners.html')
+
+def admin_messages_view(request):
+    return render(request, 'wasac/admin_messages.html')
+
+def sedo_messages_view(request):
+    return render(request, 'wasac/sedo_messages.html')
+
+def dashboard(request):  # noqa: F811
+    # Your dashboard logic
+    return render(request, 'wasac/dashboard.html')
+
+def user_management(request):
+    # Your user management logic
+    return render(request, 'wasac/user_management.html')
+
+def case_categories(request):
+    # Your case categories logic
+    return render(request, 'wasac/case_categories.html')
+
+def report_generation(request):
+    # Your report generation logic
+    return render(request, 'wasac/report_generation.html')
+
+
+# views.py for customer dashboard
+
+def load_customer_dashboard(request):
+    return render(request, 'customer/dashboard.html')
+
+@login_required
+def profile_view(request):
+    customer = warsUser.objects.filter(email=request.user.email).first()
+    if not customer:
+        return JsonResponse({'error': 'Customer profile not found'}, status=404)
+
+    location = Location.objects.filter(user=customer).first()
+    profile = userProfile.objects.filter(user=customer).first()
+
+    if request.method == "POST":
+        customer.names = request.POST.get('names', customer.names)
+        customer.phone = request.POST.get('phone', customer.phone)
+        customer.nationalId = request.POST.get('nationalId', customer.nationalId)
+        customer.save()
+        
+        if location:
+            location.province = request.POST.get('province', location.province)
+            location.district = request.POST.get('district', location.district)
+            location.save()
+        
+        if profile:
+            profile.role = request.POST.get('role', profile.role)
+            profile.save()
+
+        return JsonResponse({'message': 'Profile updated successfully.'})
+
+    return render(request, 'customer/profile.html', {
+        'customer': customer,
+        'location': location,
+        'profile': profile
+    })
+@login_required
+def cases_view(request):
+    if request.method == "POST":
+        case_title = request.POST.get('title')
+        case_description = request.POST.get('description')
+        return JsonResponse({'message': 'Case reported successfully.'})
+    return render(request, 'customer/cases.html')
+
+@login_required
+def notifications_view(request):
+    notifications = [
+        {'title': 'Notification 1', 'description': 'Details of notification 1'},
+        {'title': 'Notification 2', 'description': 'Details of notification 2'}
+    ]
+    return render(request, 'customer/notifications.html', {'notifications': notifications})
+
+@login_required
+def service_requests_view(request):
+    if request.method == "POST":
+        service_type = request.POST.get('service_type')
+        service_description = request.POST.get('description')
+        return JsonResponse({'message': 'Service request submitted successfully.'})
+    return render(request, 'customer/service_requests.html')
+
+@login_required
+def helpdesk_view(request):
+    if request.method == "POST":
+        issue = request.POST.get('issue')
+        details = request.POST.get('details')
+        return JsonResponse({'message': 'Help desk request submitted successfully.'})
+    return render(request, 'customer/helpdesk.html')
+
+
 
 # User system dashboard
 
-def profile_view(request):
-    return render(request, 'dashboard/profile.html')
+def profile_view(request):  # noqa: F811
+    user = request.user  # Assuming user is logged in
+    try:
+        user = warsUser.objects.get(user=user)  # Fetch related profile if exists
+    except userProfile.DoesNotExist:
+        profile = None  # Handle case where no profile exists
+    return render(request, 'profile.html', {'user': user, 'profile': profile})
 
-def providers_view(request):
+def service_request_view(request):
     return render(request, 'dashboard/providers.html')
 
-def reports_view(request):
+def reports_view(request):  # noqa: F811
     return render(request, 'dashboard/reports.html')
 
 def cases_view(request):
@@ -73,10 +261,41 @@ def cases_view(request):
 
 def helpdesk_view(request):
     return render(request, 'dashboard/helpdesk.html')
-def notifications_view(request):
+def notifications_view(request):  # noqa: F811
     return render(request, 'dashboard/notifications.html')
 def logout(request):
     return render(request, 'dashboard/logout.html')
+
+# Admin system dashboard
+
+# Define views for each nav link
+def admin_profile_view(request):
+    return render(request, 'admin_dashboard/profile.html')
+
+def admin_manage_users_view(request):
+    users = warsUser.objects.all()
+    return render(request, 'admin_dashboard/manage_users.html', {'users': users})
+
+def admin_login_logs_view(request):
+    return render(request, 'admin_dashboard/login_logs.html')
+
+def admin_user_messages(request):
+    return render(request, 'admin_dashboard/user_messages.html')
+
+def reply_users(request, user_id, ):
+    user = warsUser.objects.get(id=user_id)
+    return render(request, 'admin_dashboard/reply_users.html', {'user': user})
+
+def admin_reports_view(request):
+    return render(request, 'admin_dashboard/reports.html')
+
+def admin_notifications_view(request):
+    return render(request, 'admin_dashboard/notifications.html')
+
+def admin_helpdesk_view(request):
+    return render(request, 'admin_dashboard/helpdesk.html')
+
+# Add views for all the other nav links as needed
 
 # <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
 
@@ -141,7 +360,7 @@ def register_user(request):
                 # Ensure userProfile does not already exist before creating
                 try:
                     userProfile.objects.get(user=user)
-                except ObjectDoesNotExist:
+                except userProfile.DoesNotExist:
                     # Create user profile with default role 'Customer' if it does not exist
                     userProfile.objects.create(user=user, role='Customer')
 
@@ -320,7 +539,7 @@ def register_user(request):
             messages.error(request, f'An unexpected error occurred: {e}')
 
     else:
-        form = RegistrationForm()  # Assuming you have a RegistrationForm for the POST request
+        RegistrationForm()  # Assuming you have a RegistrationForm for the POST request
 
     return render(request, 'register.html')
 

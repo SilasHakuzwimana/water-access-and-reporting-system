@@ -1,9 +1,6 @@
 from django.db import models  # noqa: F401
-from django.contrib.auth.hashers import make_password,Argon2PasswordHasher
-from django.contrib.auth.models import AbstractUser
-from django.utils.crypto import get_random_string
+from django.contrib.auth.hashers import Argon2PasswordHasher
 from argon2 import PasswordHasher
-import datetime
 
 # Create your models here.
 

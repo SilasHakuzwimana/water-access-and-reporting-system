@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Generate Reports</h2>
+    <ul class="list-group">
+        {% for report in reports %}
+        <li class="list-group-item">
+            <h5>{{ report.title }}</h5>
+            <p>{{ report.created_at }}</p>
+            <a href="#" class="btn btn-primary">View Report</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+<h1>Service Requests</h1>
+<form method="POST">
+    {% csrf_token %}
+    <label for="service_type">Service Type:</label>
+    <input type="text" id="service_type" name="service_type">
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+    <button type="submit">Request Service</button>
+</form>
+{% endblock %}

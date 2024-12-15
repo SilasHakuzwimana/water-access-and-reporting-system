@@ -10,17 +10,33 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
+    <style>
+        .spinner-wrapper {
+            display: none; /* Ensure the spinner is hidden by default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1050; /* Ensure it's above other elements */
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 100%;
+            height: 100%;
+        }
+        .spinner-wrapper .spinner-border {
+            width: 4rem;
+            height: 4rem;
+        }
+    </style>
 </head>
 <body>
     <div class="logo text-center mb-4">
         <img src="{% static 'images/front-images/wars_logo.png' %}" alt="Water Access & Reporting System Logo">
     </div>
     <div class="container">
-        <div class="card p-4">
+        <div class="card p-4 position-relative">
             <div class="header text-center mb-4">
                 <h2><i><img src="{% static 'images/front-images/upp-login-icon.png' %}" alt="Login Icon"></i> System User Login</h2>
             </div>
-            <form id="loginForm">
+            <form id="loginForm" class="position-relative">
                 <div class="form-group mb-3">
                     <label for="email">Email *</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your registered email address" required>
@@ -38,12 +54,13 @@
                     <button type="button" class="btn btn-secondary" onclick="redirectToIndex();">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
                     <button type="submit" class="btn btn-primary" id="loginButton">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
                 </div>
-            </form>
-            <div class="spinner-wrapper" id="spinnerWrapper" style="display: none;">
-                <div class="spinner-border text-primary" id="loginSpinner" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <!-- Spinner positioned within the form -->
+                <div class="spinner-wrapper d-flex justify-content-center align-items-center" id="spinnerWrapper">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="links mt-3 text-center">
                 <p>Forgot your password? <a href="/password-reset">Reset Password</a></p>
                 <p>Don't have an account yet? <a href="/register">Register</a></p>
@@ -54,55 +71,79 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function redirectToIndex() {
-            window.location.href = "/";
-        }
+        $(document).ready(function () {
+            // Hide spinner on page load
+            $("#spinnerWrapper").hide();
 
-        $("#loginForm").submit(function(event) {
-            event.preventDefault();
-            $("#loginSpinner").show();
-            $("#loginButton").prop("disabled", true);
+            // Initialize a submit flag
+            let isSubmitting = false;
 
-            var email = $("#email").val();
-            var password = $("#password").val();
+            // Form submission handler
+            $("#loginForm").submit(function (event) {
+                event.preventDefault();
 
-            $.ajax({
-                url: "/login/",
-                method: "POST",
-                data: {
-                    'email': email,
-                    'password': password,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Redirect to the OTP verification page
-                        window.location.href = response.redirect_url;
-                    } else {
-                        alert("Invalid login credentials");
-                    }
-                    $("#loginSpinner").hide();
-                    $("#loginButton").prop("disabled", false);
-                },
-                error: function() {
-                    alert("An error occurred while processing your request.");
-                    $("#loginSpinner").hide();
-                    $("#loginButton").prop("disabled", false);
+                if (isSubmitting) {
+                    return; // Prevent duplicate submissions
                 }
+
+                isSubmitting = true; // Set the flag to true
+
+                // Show spinner and disable form
+                $("#spinnerWrapper").fadeIn();
+                $("#loginButton").prop("disabled", true);
+                $("#email, #password").prop("disabled", true);
+
+                var email = $("#email").val();
+                var password = $("#password").val();
+
+                $.ajax({
+                    url: "/login/",
+                    method: "POST",
+                    data: {
+                        'email': email,
+                        'password': password,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Redirect to the OTP verification page
+                            window.location.href = response.redirect_url;
+                        } else {
+                            alert("Invalid login credentials");
+                            resetFormState();
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while processing your request.");
+                        resetFormState();
+                    }
+                });
+            });
+
+            // Reset form state
+            function resetFormState() {
+                isSubmitting = false;
+                $("#spinnerWrapper").fadeOut();
+                $("#loginButton").prop("disabled", false);
+                $("#email, #password").prop("disabled", false);
+            }
+
+            // Password visibility toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password'
+                    ? '<i class="bi bi-eye-slash"></i>'
+                    : '<i class="bi bi-eye"></i>';
             });
         });
 
-        // Password visibility toggle
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-
-        togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.innerHTML = type === 'password'
-                ? '<i class="bi bi-eye-slash"></i>'
-                : '<i class="bi bi-eye"></i>';
-        });
+        function redirectToIndex() {
+            window.location.href = "/";
+        }
     </script>
 </body>
 </html>

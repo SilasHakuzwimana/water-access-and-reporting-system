@@ -1,0 +1,28 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+<h1>Profile</h1>
+<form method="POST">
+    {% csrf_token %}
+    <label for="names">Full Name:</label>
+    <input type="text" id="names" name="names" value="{{ customer.names }}">
+
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phone" name="phone" value="{{ customer.phone }}">
+
+    <label for="nationalId">National ID:</label>
+    <input type="text" id="nationalId" name="nationalId" value="{{ customer.nationalId }}">
+
+    <h3>Location Details</h3>
+    <label for="province">Province:</label>
+    <input type="text" id="province" name="province" value="{{ location.province }}">
+
+    <label for="district">District:</label>
+    <input type="text" id="district" name="district" value="{{ location.district }}">
+
+    <h3>Profile Details</h3>
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role" value="{{ profile.role }}">
+
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

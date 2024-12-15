@@ -1,0 +1,20 @@
+<!-- Profile Template -->
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">Profile</div>
+    <div class="card-body">
+        <p>Welcome to your profile! Here you can manage your personal details.</p>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

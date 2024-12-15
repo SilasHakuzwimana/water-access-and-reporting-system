@@ -1,0 +1,10 @@
+<!-- Logout Template -->
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header bg-light text-dark">Logout</div>
+    <div class="card-body">
+        <p>You have successfully logged out. See you again!</p>
+        <a href="{% url 'login' %}" class="btn btn-light">Login Again</a>
+    </div>
+</div>
+{% endblock %}

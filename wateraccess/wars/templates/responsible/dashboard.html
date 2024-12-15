@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome to the Responsible Dashboard</h2>
+    <p>Use the menu to manage tasks, assign technicians, monitor cases, and generate reports.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Assign Technicians</h5>
+                    <p class="card-text">Assign technicians to tasks and cases.</p>
+                    <a href="{% url 'assign_technicians' %}" class="btn btn-primary">Assign Technicians</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Case Management</h5>
+                    <p class="card-text">Manage and monitor cases.</p>
+                    <a href="{% url 'case_management' %}" class="btn btn-primary">View Cases</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Generate Reports</h5>
+                    <p class="card-text">Generate detailed reports for case tracking.</p>
+                    <a href="{% url 'generate_reports' %}" class="btn btn-primary">Generate Reports</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

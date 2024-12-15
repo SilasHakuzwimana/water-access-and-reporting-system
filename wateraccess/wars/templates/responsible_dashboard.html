@@ -4,13 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WARS - SEDO-Sector System Dashboard</title>
+    <title>WARS - Responsible System Dashboard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{% static 'css/sedo_sec_dashboard_styles.css'%}">
+    <link rel="stylesheet" href="{% static 'css/sedo_dist_dashboard_styles.css'%}">
+    <style>
+        body {
+            background-color: #ffffff;
+            height:auto;
+        }
+        .py-3 {
+            width: 25%;
+        }
+        #main-content {
+            width: 75%; /* Adjusted to leave space for the sidebar */
+        }
+        header {
+            text-align: justify;
+            padding: 20px;
+        }
+        header img {
+            width: 180px;
+            margin-bottom: 15px;
+        }
+        header span img{
+            width:20px;
+            margin-bottom:15px;
+        }
+        header h1 {
+            font-size: 1.75rem;
+        }
+        .sidebar {
+            padding-top: 30px;
+            padding-right: 5px;
+        }
+        .nav-link {
+            margin-bottom: 15px; /* Adds spacing between nav items */
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div class="container-fluid">
@@ -18,7 +55,7 @@
         <header class="d-flex align-items-center justify-content-between p-3 border-bottom">
             <div class="d-flex align-items-center">
                 <img src="{% static 'images/front-images/wars_logo.png'%}" alt="Water System Logo" class="me-3" style="width: 200px;">
-                <h1 class="h3 m-0">SEDO-SECTOR System Dashboard</h1>
+                <h1 class="h3 m-0">Responsible System Dashboard</h1>
             </div>
         </header>
 
@@ -28,33 +65,28 @@
             <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" data-target="profile" id="profile-link">
+                        <a class="nav-link active" href="#" data-target="dashboard" id="profile-link">
                             <span class="icon">&#128100;</span> Profile
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="providers" id="providers-link">
-                            <span class="icon">&#128221;</span> Tap Water Providers
+                        <a class="nav-link" href="#" data-target="assign-technicians" id="assign_technicians-link">
+                            <span class="icon">&#128187;</span> Assign Technicians
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="reports" id="reports-link">
-                            <span class="icon">&#128200;</span> Reports
+                        <a class="nav-link" href="#" data-target="case-management" id="case_management-link">
+                            <span class="icon">&#128337;</span> Case Management
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="cases" id="cases-link">
-                            <span class="icon">&#128337;</span> Cases
+                        <a class="nav-link" href="#" data-target="escalations" id="escalations-link">
+                            <span class="icon">&#9888;</span> Escalations
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="helpdesk" id="helpdesk-link">
-                            <span class="icon">&#128222;</span> Help Desk
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="notifications" id="notifications-link">
-                            <span class="icon">&#128276;</span> Notifications
+                        <a class="nav-link" href="#" data-target="generate_reports" id="generate_reports-link">
+                            <span class="icon">&#128200;</span> Generate Reports
                         </a>
                     </li>
                     <li class="nav-item">
@@ -68,7 +100,7 @@
             <!-- Main Content -->
             <main class="col-md-9 col-lg-10 ms-sm-auto px-4" id="main-content">
                 <div class="pt-3">
-                    <h2>Welcome to SEDO-SECTOR Dashboard!</h2>
+                    <h2>Welcome to Responsible Dashboard!</h2>
                     <p>Select an action from the left menu to get started.</p>
 
                     <!-- Row for the detail cards -->
@@ -77,23 +109,23 @@
                             <div class="card detail-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Profile</h5>
-                                    <p class="card-text">View your profile settings.</p>
+                                    <p class="card-text">View and update your profile settings.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="card detail-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Tap Water Providers</h5>
-                                    <p class="card-text">Manage tap water providers within your sector.</p>
+                                    <h5 class="card-title">Assign Technicians</h5>
+                                    <p class="card-text">Assign technicians to specific tasks and cases.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="card detail-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Reports</h5>
-                                    <p class="card-text">Access weekly reports.</p>
+                                    <h5 class="card-title">Case Management</h5>
+                                    <p class="card-text">Monitor the status of ongoing cases and their resolution.</p>
                                 </div>
                             </div>
                         </div>
@@ -103,35 +135,24 @@
                         <div class="col-md-4 mb-4">
                             <div class="card detail-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Cases</h5>
-                                    <p class="card-text">Manage water access cases within your sector.</p>
+                                    <h5 class="card-title">Escalations</h5>
+                                    <p class="card-text">Escalate unresolved cases or issues that need urgent attention.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="card detail-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Help Desk</h5>
-                                    <p class="card-text">Contact support from your dashboard.</p>
+                                    <h5 class="card-title">Generate Reports</h5>
+                                    <p class="card-text">Generate detailed reports for service requests, cases, and technician performance.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card detail-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Notifications</h5>
-                                    <p class="card-text">View notifications.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-4 mb-4">
                             <div class="card detail-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Logout</h5>
-                                    <p class="card-text">Securely exit from system.</p>
+                                    <p class="card-text">Securely exit from the system.</p>
                                 </div>
                             </div>
                         </div>
