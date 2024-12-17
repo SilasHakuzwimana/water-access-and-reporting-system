@@ -17,19 +17,24 @@
             margin: 0 auto;
             color: green;
         }
+
+        /* Make sure the logo is visible */
+        .header-logo img {
+            max-width: 150px; /* Adjust the logo size as needed */
+            height: auto;
+        }
     </style>
 </head>
 <body class="bg-light">
-    <header class="text-center py-4">
-        <img src="{% static 'images/front-images/wars_logo.png' %}" alt="Water System Logo" class="img-fluid" style="max-width: 150px;">
+    <header class="text-center align-items-center p-lg-2 p-4 py-4 header-logo">
+        <img src="{% static 'images/front-images/wars_logo.png' %}" alt="Water System Logo" class="img-fluid">
     </header>
     <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
         <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
             <h1 class="text-center text-primary mb-4">
-                <img src="{% static 'images/front-images/upp-otp-verification-icon.svg' %}" alt="OTP Icon" class="me-2" style="max-width: 30px;"> 
+                <img src="{% static 'images/front-images/upp-otp-verification-icon.svg' %}" width="50px" height="50px" alt="OTP Icon" class="me-2" style="max-width: 50px;">
                 OTP Verification
             </h1>
-            <p class="text-center text-muted mb-4">Enter the OTP sent to your email to complete login.</p>
             <form id="otpForm">
                 {% csrf_token %}
                 <div class="mb-3">

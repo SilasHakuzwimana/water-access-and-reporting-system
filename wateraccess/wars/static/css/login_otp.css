@@ -13,10 +13,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
     padding: 10px;
 }
-
 .container {
     width: 100%;
     max-width: 500px;
@@ -28,7 +27,7 @@ body {
 }
 
 .header .logo {
-    max-width: 150px;
+    max-width: 200rem;
     margin-bottom: 20px;
 }
 
