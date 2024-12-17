@@ -11,25 +11,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
     <style>
-        .spinner-wrapper {
-            display: none; /* Ensure the spinner is hidden by default */
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1050; /* Ensure it's above other elements */
-            background-color: rgba(255, 255, 255, 0.8);
-            width: 100%;
-            height: 100%;
+        #loadingSpinner{
+            display: none;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            width:50px;
+            height: 50px;
         }
-        .spinner-wrapper .spinner-border {
-            width: 4rem;
-            height: 4rem;
+        .spinner-border {
+            width: 50px;
+            height: 50px;
+            border-width: 5px;
+            color: green;
         }
     </style>
 </head>
 <body>
     <div class="logo text-center mb-4">
-        <img src="{% static 'images/front-images/wars_logo.png' %}" alt="Water Access & Reporting System Logo">
+        <img src="{% static 'images/front-images/wars_logo.png' %}" width="200rem" height="200rem"  alt="Water Access & Reporting System Logo">
     </div>
     <div class="container">
         <div class="card p-4 position-relative">
@@ -37,6 +37,7 @@
                 <h2><i><img src="{% static 'images/front-images/upp-login-icon.png' %}" alt="Login Icon"></i> System User Login</h2>
             </div>
             <form id="loginForm" class="position-relative">
+                {% csrf_token %}
                 <div class="form-group mb-3">
                     <label for="email">Email *</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your registered email address" required>
@@ -50,15 +51,15 @@
                         </span>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-secondary" onclick="redirectToIndex();">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
-                    <button type="submit" class="btn btn-primary" id="loginButton">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
-                </div>
-                <!-- Spinner positioned within the form -->
-                <div class="spinner-wrapper d-flex justify-content-center align-items-center" id="spinnerWrapper">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                <div class="text-center">
+                    <div class="spinner-border" id="loadingSpinner" role="status">
+                    <span class="visually-hidden">Loading...</span>
                     </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-secondary" onclick="redirectToIndex();" style="background-color: #0C21E4;">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
+                    <button type="submit" class="btn btn-primary" id="loginButton" style="background-color: #18BBB1;">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
                 </div>
             </form>
             <div class="links mt-3 text-center">
@@ -72,44 +73,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Hide spinner on page load
-            $("#spinnerWrapper").hide();
-
-            // Initialize a submit flag
+            const spinner = $("#loadingSpinner");
+            const loginButton = $("#loginButton");
+            const emailInput = $("#email");
+            const passwordInput = $("#password");
             let isSubmitting = false;
-
+        
             // Form submission handler
             $("#loginForm").submit(function (event) {
                 event.preventDefault();
-
-                if (isSubmitting) {
-                    return; // Prevent duplicate submissions
-                }
-
-                isSubmitting = true; // Set the flag to true
-
-                // Show spinner and disable form
-                $("#spinnerWrapper").fadeIn();
-                $("#loginButton").prop("disabled", true);
-                $("#email, #password").prop("disabled", true);
-
-                var email = $("#email").val();
-                var password = $("#password").val();
-
+        
+                if (isSubmitting) return;
+        
+                isSubmitting = true;
+                spinner.show(); // Show spinner
+                spinner.css('display', 'inline-block');
+                loginButton.prop("disabled", true);
+                emailInput.prop("disabled", true);
+                passwordInput.prop("disabled", true);
+        
+                const email = emailInput.val();
+                const password = passwordInput.val();
+        
+                // AJAX request
                 $.ajax({
                     url: "/login/",
                     method: "POST",
                     data: {
-                        'email': email,
-                        'password': password,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        email,
+                        password,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Redirect to the OTP verification page
+                            alert('Login successful, Check your inbox for your OTP to complete login')
                             window.location.href = response.redirect_url;
                         } else {
-                            alert("Invalid login credentials");
+                            alert(response.message || "Invalid login credentials.");
                             resetFormState();
                         }
                     },
@@ -119,30 +119,27 @@
                     }
                 });
             });
-
-            // Reset form state
+        
+            // Reset form and spinner state
             function resetFormState() {
                 isSubmitting = false;
-                $("#spinnerWrapper").fadeOut();
-                $("#loginButton").prop("disabled", false);
-                $("#email, #password").prop("disabled", false);
+                spinner.hide();
+                loginButton.prop("disabled", false);
+                emailInput.prop("disabled", false);
+                passwordInput.prop("disabled", false);
             }
-
-            // Password visibility toggle
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-
-            togglePassword.addEventListener('click', function () {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.innerHTML = type === 'password'
-                    ? '<i class="bi bi-eye-slash"></i>'
-                    : '<i class="bi bi-eye"></i>';
+        
+            // Password toggle visibility
+            $("#togglePassword").on("click", function () {
+                const passwordField = $("#password");
+                const passwordFieldType = passwordField.attr("type") === "password" ? "text" : "password";
+                passwordField.attr("type", passwordFieldType);
+                $(this).find("i").toggleClass("bi-eye bi-eye-slash");
             });
         });
 
-        function redirectToIndex() {
-            window.location.href = "/";
+        function redirectToIndex(){
+            window.location.href="/";
         }
     </script>
 </body>

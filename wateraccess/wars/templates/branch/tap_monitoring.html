@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="row bg-light py-3 align-items-center">
+            <div class="col">
+                <h1 class="text-center">Tap Monitoring</h1>
+            </div>
+        </header>
+
+        <div class="mt-4">
+            <h4>Add a New Tap</h4>
+            <form method="POST" action="{% url 'add_tap' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="customer_name" class="form-label">Customer Name</label>
+                    <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Tap</button>
+            </form>
+
+            <h4 class="mt-4">Existing Taps</h4>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tap ID</th>
+                        <th>Customer Name</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tap in taps %}
+                    <tr>
+                        <td>{{ tap.id }}</td>
+                        <td>{{tap.tap_id}}</td>
+                        <td>{{ tap.customer_name }}</td>
+                        <td>{{ tap.location }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ tap.id }}">Edit</button>
+                            <form action="{% url 'delete_tap' tap.id %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editModal{{ tap.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5>Edit Tap</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editForm{{ tap.id }}" method="POST" action="{% url 'edit_tap' tap.id %}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="customer_name{{ tap.id }}">Customer Name</label>
+                                            <input type="text" class="form-control" id="customer_name{{ tap.id }}" name="customer_name" value="{{ tap.customer_name }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="location{{ tap.id }}">Location</label>
+                                            <input type="text" class="form-control" id="location{{ tap.id }}" name="location" value="{{ tap.location }}" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".modal form").forEach(form => {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const actionUrl = form.getAttribute("action");
+
+                fetch(actionUrl, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value,
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.reload();
+                        window.location.href=redirect_url
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error(error));
+            });
+        });
+    });
+</script>
+</html>

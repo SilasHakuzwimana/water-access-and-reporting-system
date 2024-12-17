@@ -1,5 +1,5 @@
 from django import forms
-from .models import Province, District, Sector, Cell, Village,ContactMessage, warsUser,userProfile
+from .models import Province, District, Sector, Cell, Tap, Village,ContactMessage, warsUser,userProfile,Case
 
 # Form for User Registration
 class RegistrationForm(forms.Form):
@@ -23,7 +23,7 @@ class RegistrationForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data['email']
         if warsUser.objects.filter(email=email).exists():
-            raise ValidationError('Email already exists. Please use a different email.')
+            raise forms.ValidationError('Email already exists. Please use a different email.')
         return email
 
     # Location Information
@@ -51,19 +51,25 @@ class RegistrationForm(forms.Form):
         # Add custom validation for emergency contact
         return emergency_contact
 
+# TapForm
+
+class TapForm(forms.ModelForm):
+    class Meta:
+        model = Tap
+        fields = ['customer_name', 'location']
+
+class CaseForm(forms.ModelForm):
+    class Meta:
+        model = Case
+        fields = ['reporter_name', 'reporter_email', 'tap_id', 'title', 'description', 'file']
+
 #ContactMessageForm
 
 class ContactMessageForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ['names', 'phone', 'email', 'message', 'file']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your names'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Write your message here...'}),
-            'file': forms.FileInput(attrs={'class': 'form-control'}),
-        }
+
 
 
 # Forms for user registration data

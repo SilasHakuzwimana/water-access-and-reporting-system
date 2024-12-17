@@ -1,0 +1,29 @@
+body {
+    font-family: 'EB Garamond', serif;
+}
+
+header {
+    border-bottom: 2px solid #ccc;
+}
+
+.sidebar {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar .nav-link {
+    font-size: 1.1rem;
+    color: #333;
+    padding: 10px;
+    transition: background 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.main-content {
+    padding: 20px;
+}

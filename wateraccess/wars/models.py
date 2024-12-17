@@ -1,4 +1,8 @@
-from django.db import models  # noqa: F401
+from asyncio.log import logger
+import logging
+from django.utils.timezone import now
+from django.db import models
+from django.db.models import Max
 from django.contrib.auth.hashers import Argon2PasswordHasher
 from argon2 import PasswordHasher
 
@@ -84,6 +88,62 @@ class userProfile(models.Model):
     def __str__(self):
         return f"{self.user.names} - {self.role}"
 
+class Tap(models.Model):
+    customer_name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    tap_id = models.CharField(max_length=20, unique=True)
+    date_added = models.DateTimeField(default=now)  # Use timezone-aware now
+
+    logger = logging.getLogger(__name__)
+
+def save(self, *args, **kwargs):
+    if not self.tap_id:
+        year = now().year
+        attempts = 0  # Add a counter for attempts
+        while True:
+            attempts += 1
+            logger.info(f"Attempt {attempts}: Generating tap_id for year {year}.")
+            
+            last_tap = Tap.objects.filter(tap_id__startswith=str(year)).aggregate(max_id=Max('tap_id'))['max_id']
+            if last_tap:
+                next_number = int(last_tap[4:]) + 1
+            else:
+                next_number = 1
+
+            generated_id = f"WASAC{year}{str(next_number).zfill(4)}"
+            if not Tap.objects.filter(tap_id=generated_id).exists():
+                self.tap_id = generated_id
+                break  # Exit the loop if unique ID found
+            if attempts > 10:  # Add a safeguard to prevent infinite loop
+                raise Exception("Failed to generate a unique tap_id after 10 attempts.")
+    super().save(*args, **kwargs)
+    def __str__(self):
+        return f"{self.tap_id} - {self.customer_name} ({self.location})"
+
+from django.db import models
+from django.contrib.auth.models import User
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Case(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cases')
+    reporter_name = models.CharField(max_length=255, default="Anonymous")  # Default for existing rows
+    reporter_email = models.EmailField(default="no-2reply@example.com")      # Default for existing rows
+    tap_id = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    file = models.FileField(upload_to='cases/files/', blank=True, null=True)
+    status = models.CharField(max_length=50, default='Pending')  # Example: Pending, Resolved
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+
+
 # ContactMessage model
 
 class ContactMessage(models.Model):
@@ -91,7 +151,7 @@ class ContactMessage(models.Model):
     phone = models.CharField(max_length=15)
     email = models.EmailField()
     message = models.TextField()
-    file = models.FileField(upload_to='uploads/contacts/')  # Adjust the upload path as needed
+    file = models.FileField(upload_to='uploads/contacts/', blank=True, null=True)  # Adjust the upload path as needed
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

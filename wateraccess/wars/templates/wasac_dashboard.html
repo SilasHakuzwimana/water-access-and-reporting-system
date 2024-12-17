@@ -42,7 +42,7 @@
                         <a href="#" class="nav-link" onclick="loadContent('performance_reports')"><span class="icon">&#128200;</span> Performance Reports</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link"><span class="icon">&#128682;</span> Logout</a>
+                        <a href="{% url 'login' %}" class="nav-link"><span class="icon">&#128682;</span> Logout</a>
                     </li>
                 </ul>
             </nav>
@@ -50,7 +50,7 @@
             <!-- Main Content Area -->
             <main class="col-md-9 col-lg-10">
                 <div id="main-content">
-                    <h3>Welcome to the WASAC-BRANCH Branch Manager Dashboard!</h3>
+                    <h3>Welcome to the Branch Manager Dashboard!</h3>
                     <p>Explore the functionalities available to you:</p>
 
                     <!-- Initial Dashboard Content -->
@@ -96,7 +96,7 @@
     <script>
         // Load content dynamically based on the selected page
         function loadContent(page) {
-            fetch(`/wasac/${page}/`)
+            fetch(`/branch/${page}/`)
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('main-content').innerHTML = html;

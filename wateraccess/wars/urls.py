@@ -10,6 +10,7 @@ urlpatterns = [
     path('login_otp_verification/', views.login_otp_verification, name='login_otp_verification'),
     path('register/', views.register_user, name='register_user'),
     path('registration-otp-verification/', views.register_otp_verification, name='register_otp_verification'),
+    path('logout/', views.login, name='logout'),
     path('password-reset/', views.password_reset_request, name='password_reset'),
     path('password-update/', views.reset_password, name='password_update'),
     path('registration-success/', views.registration_success, name='registration_success'),
@@ -39,11 +40,17 @@ urlpatterns = [
 
     # Wasac Branch urls
 
-    path('dashboard/', views.branch_dashboard, name='branch_dashboard'),
-    path('wasac/branch_management/', views.branch_management, name='branch_management'),
-    path('wasac/tap_monitoring/', views.tap_monitoring, name='tap_monitoring'),
-    path('wasac/case_assignment/', views.case_assignment, name='case_assignment'),
-    path('wasac/performance_reports/', views.performance_reports, name='performance_reports'),
+    path('branch/dashboard/', views.branch_dashboard, name='branch_dashboard'),
+    path('branch/branch_management/', views.branch_management, name='branch_management'),
+    path('branch/tap_monitoring/', views.tap_monitoring, name='tap_monitoring'),
+    path('add-tap/', views.add_tap, name='add_tap'),
+    path('edit-tap/<int:tap_id>/', views.edit_tap, name='edit_tap'),
+    path('delete-tap/<int:tap_id>/', views.delete_tap, name='delete_tap'),
+    path('branch/case_assignment/', views.case_assignment, name='case_assignment'),
+    path('assign-case/', views.assign_case, name='assign_case'),
+    path('update-case/<int:case_id>/', views.update_case_status, name='update_case'),
+    
+    path('branch/performance_reports/', views.performance_reports, name='performance_reports'),
 
     # Responsible System Dashboard Urls
 
@@ -64,7 +71,7 @@ urlpatterns = [
 
     path('dashboard/', views.load_customer_dashboard, name='customer_dashboard'),
     path('customer/profile/', views.profile_view, name='profile'),
-    path('customer/cases/', views.cases_view, name='cases'),
+    path('customer/cases_view/', views.cases_view, name='cases'),
     path('customer/notifications/', views.notifications_view, name='notifications'),
     path('customer/service-requests/', views.service_requests_view, name='service_requests'),
     path('customer/helpdesk/', views.helpdesk_view, name='helpdesk'),

@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
+import json
 from django.utils.timezone import localtime, now
 from datetime import timedelta, datetime
-from django.contrib.auth.hashers import Argon2PasswordHasher,check_password
+from django.contrib.auth.hashers import Argon2PasswordHasher,check_password,make_password
 import random
 import string
 import logging
@@ -16,8 +17,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Province, District, Sector, Cell, Village,warsUser, Location, Password, userProfile
-from .forms import ContactMessageForm, ProvinceForm, DistrictForm, SectorForm, CellForm, VillageForm
+from .models import Case, Province, District, Sector, Cell, Tap, Village,warsUser, Location, Password, userProfile
+from .forms import ContactMessageForm, ProvinceForm, DistrictForm, SectorForm, CellForm, VillageForm,CaseForm
 
 # Create your views here.
 
@@ -91,25 +92,146 @@ def logout_view(request):
     return render(request, 'admin_views/logout.html')
 
 
-# Wasac branch system dashboard views
+# Branch system dashboard views
 
-# View for the main dashboard
+@login_required
 def branch_dashboard(request):
-    return render(request, 'branch/branch_dashboard.html')
+    # Example data to render charts
+    analytics_data = {
+        "taps": {"working": 120, "not_working": 30, "total": 150},
+        "users": {"active": 2000, "inactive": 500, "total": 2500},
+        "technicians": {"available": 20, "busy": 10, "total": 30},
+        "cases": {"resolved": 100, "pending": 25, "in_progress": 15, "total": 140},
+    }
+    analytics_data_json = json.dumps(analytics_data)
+    return render(request, 'branch/branch_dashboard.html', {'analytics_data': analytics_data_json})
 
-# Views for each section
+# API for asynchronous chart data (optional)
+def analytics_data_api(request):
+    data = {
+        "taps": {"working": 120, "not_working": 30, "total": 150},
+        "users": {"active": 2000, "inactive": 500, "total": 2500},
+        "technicians": {"available": 20, "busy": 10, "total": 30},
+        "cases": {"resolved": 100, "pending": 25, "in_progress": 15, "total": 140},
+    }
+    return JsonResponse(data)
+
+@login_required
 def branch_management(request):
     return render(request, 'branch/branch_management.html')
 
+@login_required
 def tap_monitoring(request):
-    return render(request, 'branch/tap_monitoring.html')
+    taps=Tap.objects.all()  # Fetch all taps from the database
+    return render(request, 'branch/tap_monitoring.html', {'taps': taps})
 
+def add_tap(request):
+    if request.method == 'POST':
+        try:
+            customer_name = request.POST.get('customer_name')
+            location = request.POST.get('location')
+            new_tap = Tap(customer_name=customer_name, location=location)
+            new_tap.save()
+            return JsonResponse({"success": True, "message": "Tap added successfully.", "tap_id": new_tap.id,'redirect_url': 'wasac_dashboard'})
+        except Exception as e:
+            return JsonResponse({"success": False, "message": str(e)}, status=400)
+    return JsonResponse({"success": False, "message": "Invalid request method."}, status=405)
+
+    return redirect('wasac_dashboard')  # Redirect back if not a POST request
+@login_required
+def edit_tap(request, tap_id):
+    try:
+        tap = Tap.objects.get(id=tap_id)  # Fetch the tap by ID
+    except Tap.DoesNotExist:
+        return redirect('wasac_dashboard')  # Redirect if tap is not found
+
+    if request.method == 'POST':
+        customer_name = request.POST.get('customer_name', '').strip()
+        location = request.POST.get('location', '').strip()
+
+        if customer_name and location:
+            tap.customer_name = customer_name
+            tap.location = location
+            tap.save()
+            return redirect('wasac_dashboard')  # Redirect on success
+        else:
+            # Handle missing fields (optional)
+            error_message = "Customer Name and Location are required."
+            return render(request, 'edit_tap.html', {'tap': tap, 'error': error_message})
+
+    return render(request, 'edit_tap.html', {'tap': tap})
+
+
+@login_required
+def delete_tap(request, tap_id):
+    try:
+        tap = Tap.objects.get(id=tap_id)  # Fetch the tap by its ID
+        tap.delete()  # Delete the tap
+    except Tap.DoesNotExist:
+        # Handle the case where the tap doesn't exist (optional)
+        pass
+
+    return redirect('wasac_dashboard')  # Redirect after deletion
+
+@login_required
 def case_assignment(request):
-    return render(request, 'branch/case_assignment.html')
+    technicians = userProfile.objects.filter(role='Technician')
+    cases = Case.objects.all()  # noqa: F821
+    return render(request, 'case_assignment.html', {'technicians': technicians, 'cases': cases})
+# View for Assigning Cases
+@login_required
+def assign_case(request, case_id):
+    case = get_object_or_404(Case, id=case_id)
+    responsible_users = UserProfile.objects.filter(role__in=['Technician', 'Responsible'])
 
+    if request.method == 'POST':
+        responsible_user_id = request.POST.get('responsible_user')
+        responsible_user = get_object_or_404(UserProfile, id=responsible_user_id)
+        case.responsible_user = responsible_user
+        case.save()
+
+        messages.success(request, f'Case assigned to {responsible_user.full_name}.')
+        return redirect('case_list')
+
+    return render(request, 'branch/case_assignment.html', {'case': case, 'responsible_users': responsible_users})
+    
+    
+    
+# View for Updating Case Status
+def update_case_status(request, case_id):
+    case = get_object_or_404(Case, id=case_id)
+
+    # Check if the user is the assigned responsible user or a manager
+    if case.responsible_user != request.user.profile and request.user.profile.role != 'Manager':
+        messages.error(request, "You don't have permission to update this case.")
+        return redirect('case_list')
+
+    if request.method == 'POST':
+        new_status = request.POST.get('status')
+        if new_status in dict(Case.STATUS_CHOICES):
+            case.status = new_status
+            case.save()
+
+            # Notify the case owner via email
+            send_mail(
+                'Case Status Updated',
+                f'The status of your case "{case.title}" has been updated to "{new_status}".',
+                settings.DEFAULT_FROM_EMAIL,
+                [case.user.email],
+                fail_silently=False,
+            )
+
+            messages.success(request, f'Status updated to {new_status}.')
+            return redirect('case_list')
+        else:
+            messages.error(request, 'Invalid status selected.')
+
+    return render(request, 'branch/update_case_status.html', {'case': case})
+
+
+@login_required
 def performance_reports(request):
     return render(request, 'branch/performance_reports.html')
-
 
 # View for the Responsible Dashboard main page
 def dashboard(request):
@@ -242,29 +364,53 @@ def helpdesk_view(request):
 
 # User system dashboard
 
-def profile_view(request):  # noqa: F811
+def profile_view(request):  
     user = request.user  # Assuming user is logged in
     try:
         user = warsUser.objects.get(user=user)  # Fetch related profile if exists
     except userProfile.DoesNotExist:
         profile = None  # Handle case where no profile exists
-    return render(request, 'profile.html', {'user': user, 'profile': profile})
+    return render(request, 'customer/profile.html', {'user': user, 'profile': profile})
 
 def service_request_view(request):
-    return render(request, 'dashboard/providers.html')
+    return render(request, 'customer/providers.html')
 
-def reports_view(request):  # noqa: F811
-    return render(request, 'dashboard/reports.html')
+def reports_view(request):  
+    return render(request, 'customer/reports.html')
 
 def cases_view(request):
-    return render(request, 'dashboard/cases.html')
+    if request.method == 'POST':
+        form = CaseForm(request.POST, request.FILES)
+        if form.is_valid():
+            case = form.save(commit=False)
+            case.user = request.user
+            case.save()
 
+            # Send email notification
+            send_mail(
+                'Case Submitted Successfully',
+                f'Thank you for submitting your case: {case.title}. Our team will review it soon.',
+                settings.DEFAULT_FROM_EMAIL,
+                [request.user.email],
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Case submitted successfully. A confirmation email has been sent to you.')
+            return redirect('cases_view')
+        else:
+            messages.error(request, 'There was an error submitting your case. Please try again.')
+    else:
+        form = CaseForm()
+
+    # Display recent cases
+    #recent_cases = Case.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'customer/cases.html', {'form': form, })
 def helpdesk_view(request):
-    return render(request, 'dashboard/helpdesk.html')
+    return render(request, 'customer/helpdesk.html')
 def notifications_view(request):  # noqa: F811
-    return render(request, 'dashboard/notifications.html')
+    return render(request, 'customer/notifications.html')
 def logout(request):
-    return render(request, 'dashboard/logout.html')
+    return render(request, 'customer/logout.html')
 
 # Admin system dashboard
 
@@ -503,7 +649,7 @@ def register_user(request):
                             <p>Dear {user.names},</p>
                             <p>Thank you for registering with WARS!
                             <br>
-                            Below is your temporary password:</p>
+                            Below is your first login password:</p>
                             <div id="tempPassword" class="temporary-password">{temp_password}</div>
                             <button class="copy-btn" onclick="copyPassword()">Copy Password</button>
                             <p>Use this password to log in to your account and ensure you change it immediately for security purposes.</p>
@@ -694,6 +840,7 @@ def login_user(request):
                 </body>
                 </html>
 
+
                     '''
 
             # Send the email
@@ -760,9 +907,9 @@ def login_otp_verification(request):
 
                 # Redirect user based on their role
                 role_redirects = {
-                    'Customer': '/user_dashboard',
-                    'Manager': '/wasac-dashboard',
-                    'Technician': '/technician-dashboard',
+                    'Customer': '/wasac-dashboard',
+                    'Manager': '/user_dashboard',
+                    'Technician': '/technician_dashboard',
                     'Responsible': '/admin_dashboard',
                 }
 
@@ -957,8 +1104,8 @@ def password_reset_request(request):
             email.attach_alternative(html_content, "text/html")
             email.send()
 
-            return JsonResponse({'success': True, 'message': 'Reset token sent to your email'})
-            return redirect('password-update')
+            return JsonResponse({'success': True, 'message': 'Reset token sent to your email','redirect_url': '/password-update'})
+            #return redirect('password-update')
 
         except warsUser.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'User not found'})
@@ -973,6 +1120,7 @@ def reset_password(request):
         email = request.POST.get('email')
         reset_token = request.POST.get('reset_token')
         new_password = request.POST.get('new_password')
+        print(f"Email: {email}, Reset Token: {reset_token}, New Password: {new_password}")
 
         if not email or not reset_token or not new_password:
             logger.error("One or more required fields are missing in the request.")
@@ -991,16 +1139,14 @@ def reset_password(request):
                     return JsonResponse({'success': False, 'message': 'Reset token has expired'})
 
                 # Token is valid and not expired, update the password
-                password_record.password_hash = Argon2PasswordHasher(new_password, hasher='argon2')
+                password_record.password_hash = make_password(new_password, hasher='argon2')
                 password_record.reset_token = None  # Clear the reset token after use
                 password_record.reset_token_expiration = None
                 password_record.save()
 
                 logger.info(f"Password successfully reset for {email}.")
                 # Redirect to login page after success
-                return JsonResponse({'success': True, 'message': 'Password successfully reset', 'redirect_url': '/login/'})
-                # Alternatively:
-                # return redirect('login')
+                return JsonResponse({'success': True, 'message': 'Password successfully reset', 'redirect_url': '/login'})
 
             else:
                 logger.error(f"Invalid reset token provided for {email}.")
@@ -1021,22 +1167,35 @@ def reset_password(request):
 
     return render(request, 'password_update.html')
 
-# Contact view
-
+# View to handle the contact form
 def contact_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # Initialize response structure
+        response = {}
+
+        # Instantiate and validate the form
         form = ContactMessageForm(request.POST, request.FILES)
+        
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Your message has been sent successfully!')
-            return redirect('contact')  # Redirect to the same page to avoid resubmission
-    else:
-        form = ContactMessageForm()
-    return render(request, 'contact.html', {'form': form})
+            # Process form data (send an email, save to database, etc.)
+            # Example: form.save() or sending an email using Django's send_mail function
+            # form.save()
 
+            # Add success message if needed
+            messages.success(request, "Your message has been sent successfully.")
 
+            # Return a success response
+            response['success'] = True
+            response['message'] = "Your message has been sent successfully."
+        else:
+            # Return errors if form is not valid
+            response['success'] = False
+            response['error'] = form.errors.as_text()  # You can customize this part for better error reporting
 
+        return JsonResponse(response)
 
+    # For GET requests, render the contact page with an empty form
+    return render(request, 'contact.html', {'form': ContactMessageForm()})
 
 # adding Rwanda administrative data
 

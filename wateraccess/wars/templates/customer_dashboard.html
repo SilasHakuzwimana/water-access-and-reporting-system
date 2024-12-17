@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-target="cases" id="cases-link">
+                        <a class="nav-link" href="#" data-target="case_view" id="cases-link">
                             <i class="bi bi-file-earmark"></i><span><img src="{% static 'images/user-images/user_cases-icon.svg'%}" width="20px" alt=""></span> Cases
                         </a>
                     </li>
@@ -180,7 +180,7 @@
                 const target = $(this).data('target');
 
                 // Fetch and load the corresponding content
-                $('#main-content').load(`/customer/${target}/`);
+                $('#main-content').load(`customer/${target}/`);
             });
         });
     </script>
