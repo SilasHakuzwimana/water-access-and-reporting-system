@@ -35,8 +35,8 @@
                     <img src="{% static 'images/front-images/wars_logo.png' %}" width="200px" height="200px" alt="System logo" loading="lazy">
                 </div>
             </header>
-            <h2 class="form-header">
-                <span><img src="{% static 'images/front-images/add-user-icon.png' %}" alt="User register"></span>
+            <h2 class="form-header" style="display: flex; width:100%;">
+                <span><img style="width: 40px;display: inline-block;" src="{% static 'images/front-images/add-user-icon.png' %}" max-width="30px" alt="User register"></span>
                 System User Registration
             </h2>
 
@@ -48,7 +48,7 @@
                 </div>
             {% endif %}
 
-            <form id="registrationForm" method="post" enctype="multipart/form-data" action="{% url 'register_user' %}">
+            <form id="registrationForm" method="post" enctype="multipart/form-data" action="{% url 'register_user' %}" style="border: #B3B3B3 solid;padding:20px;padding-bottom: 50px;width:100%; border-radius:5px; border-width:1px;align-items:center;display:inline-block;">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -101,14 +101,15 @@
                 <div class="form-section">
                     <h3>Select Your Location</h3>
                     <div class="form-group">
-                        <label for="country">Country *</label>
+                        <label for="country">Select your Resident Country *</label>
                         <select id="country" name="country" class="form-control" required>
+                            <option value="">Select Country</option>
                             <option value="Rwanda">Rwanda</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="province">Province *</label>
+                        <label for="province">Select your Resident Province *</label>
                         <select id="province" name="province" class="form-control" required>
                             <option value="" data-name="">Select Province</option>
                         </select>
@@ -116,7 +117,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="district">District *</label>
+                        <label for="district">Select your Resident District *</label>
                         <select id="district" name="district" class="form-control" required>
                             <option value="" data-name="">Select District</option>
                         </select>
@@ -124,7 +125,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sector">Sector *</label>
+                        <label for="sector">Select your Resident Sector *</label>
                         <select id="sector" name="sector" class="form-control" required>
                             <option value="" data-name="">Select Sector</option>
                         </select>
@@ -132,7 +133,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cell">Cell *</label>
+                        <label for="cell">Select your Resident Cell *</label>
                         <select id="cell" name="cell" class="form-control" required>
                             <option value="" data-name="">Select Cell</option>
                         </select>
@@ -140,7 +141,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="village">Village *</label>
+                        <label for="village">Select your Resident Village *</label>
                         <select id="village" name="village" class="form-control" required>
                             <option value="" data-name="">Select Village</option>
                         </select>
@@ -159,8 +160,8 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="redirectToLogin();">Cancel &nbsp; <span> <img src="{% static 'images/front-images/regist-user-cancel-icon.svg'%}"></span> &nbsp; </button>
-                    <button type="submit" id="registerButton" class="btn btn-primary">Register User <span> <img src="{% static 'images/front-images/regist-user-plus.svg'%}"></span> </button>
+                    <button type="button" class="btn btn-secondary" onclick="redirectToLogin();" style="font-size: 20px;">Cancel &nbsp; <span> <img src="{% static 'images/front-images/regist-user-cancel-icon.svg'%}"></span> &nbsp; </button>
+                    <button type="submit" id="registerButton" class="btn btn-primary" style="font-size: 20px;">Register User <span> <img src="{% static 'images/front-images/regist-user-plus.svg'%}"></span> </button>
                     <div class="spinner-border text-light" id="register-spinner" role="status"></div>
                 </div>
             </form>

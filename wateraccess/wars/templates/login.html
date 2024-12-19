@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
     <style>
         #loadingSpinner{
@@ -25,6 +26,23 @@
             border-width: 5px;
             color: green;
         }
+        .password-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-group .password-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        
+        input[type="password"] {
+            padding-right: 40px; /* Add space to avoid overlap with the icon */
+        }
     </style>
 </head>
 <body>
@@ -33,23 +51,22 @@
     </div>
     <div class="container">
         <div class="header text-center mb-4">
-            <h2><i><img src="{% static 'images/front-images/upp-login-icon.png' %}" alt="Login Icon"></i> System User Login</h2>
+            <h2 style="font-size: 40px;padding:0px;"><i><img style=" width: 100px;height:100px;display: flex;" src="{% static 'images/front-images/upp-login-icon.png' %}" alt="Login Icon"></i> System User Login</h2>
         </div>
         <div class="card p-4 position-relative">
             <form id="loginForm" class="position-relative">
                 {% csrf_token %}
                 <div class="form-group mb-3">
-                    <label for="email">Email *</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your registered email address" required>
                 </div>
                 <div class="form-group mb-3 position-relative">
-                    <label for="password">Password *</label>
-                    <div class="input-group password-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
-                        <span class="input-group-text toggle-password" id="togglePassword" style="cursor: pointer;">
-                            <i class="bi bi-eye-slash"></i>
-                        </span>
+                    <label for="password">Password</label>
+                    <div class="password-group position-relative">
+                        <input type="password" id="password" name="password" class="form-control w-100 pr-5" placeholder="Enter your password" required>
+                        <i id="passwordToggle" class="fas fa-eye-slash password-icon" onclick="togglePasswordVisibility()" aria-label="Toggle Password Visibility"></i>
                     </div>
+                </div>
                 </div>
                 <div class="text-center">
                     <div class="spinner-border" id="loadingSpinner" role="status">
@@ -58,13 +75,13 @@
                 </div>
                 <br>
                 <div class="d-flex justify-content-between align-items-center">
-                    <button type="button" class="btn btn-secondary" onclick="redirectToIndex();" style="background-color: #0C21E4;">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
-                    <button type="submit" class="btn btn-primary" id="loginButton" style="background-color: #18BBB1;">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
+                    <button type="button" class="btn btn-secondary" onclick="redirectToIndex();" style="background-color: #0C21E4;font-size: 20px;">Cancel <i><img src="{% static 'images/front-images/login-down-cancel-icon.svg' %}" alt="cancel"></i></button>
+                    <button type="submit" class="btn btn-primary" id="loginButton" style="background-color: #18BBB1;font-size: 20px;">Log In <i><img src="{% static 'images/front-images/login-down-nav-icon.svg' %}" alt=""></i></button>
                 </div>
             </form>
             <div class="links mt-3 text-center">
-                <p>Forgot your password? <a href="/password-reset">Reset Password</a></p>
-                <p>Don't have an account yet? <a href="/register">Register</a></p>
+                <p><a href="/password-reset" style="color:#000;text-decoration:underline;font-size:20px;">Forgot password? </a></p>
+                <p style="font-size:20px;">Don't have an account yet? <a href="/register">Register</a></p>
             </div>
         </div>
     </div>
@@ -87,7 +104,8 @@
         
                 isSubmitting = true;
                 spinner.show(); // Show spinner
-                spinner.css('display', 'inline-block');
+        
+        spinner.css('display', 'inline-block');
                 loginButton.prop("disabled", true);
                 emailInput.prop("disabled", true);
                 passwordInput.prop("disabled", true);
@@ -128,18 +146,26 @@
                 emailInput.prop("disabled", false);
                 passwordInput.prop("disabled", false);
             }
-        
-            // Password toggle visibility
-            $("#togglePassword").on("click", function () {
-                const passwordField = $("#password");
-                const passwordFieldType = passwordField.attr("type") === "password" ? "text" : "password";
-                passwordField.attr("type", passwordFieldType);
-                $(this).find("i").toggleClass("bi-eye bi-eye-slash");
-            });
         });
 
         function redirectToIndex(){
             window.location.href="/";
+        }
+    </script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var passwordToggle = document.getElementById("passwordToggle");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.classList.remove("fa-eye-slash");
+                passwordToggle.classList.add("fa-eye");
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.classList.remove("fa-eye");
+                passwordToggle.classList.add("fa-eye-slash");
+            }
         }
     </script>
 </body>

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import json
 from django.utils.timezone import localtime, now
 from datetime import timedelta, datetime
-from django.contrib.auth.hashers import Argon2PasswordHasher,check_password,make_password
+from django.contrib.auth.hashers import check_password,make_password
 import random
 import string
 import logging
@@ -182,11 +182,11 @@ def case_assignment(request):
 @login_required
 def assign_case(request, case_id):
     case = get_object_or_404(Case, id=case_id)
-    responsible_users = UserProfile.objects.filter(role__in=['Technician', 'Responsible'])
+    responsible_users = userProfile.objects.filter(role__in=['Technician', 'Responsible'])
 
     if request.method == 'POST':
         responsible_user_id = request.POST.get('responsible_user')
-        responsible_user = get_object_or_404(UserProfile, id=responsible_user_id)
+        responsible_user = get_object_or_404(userProfile, id=responsible_user_id)
         case.responsible_user = responsible_user
         case.save()
 
@@ -194,9 +194,7 @@ def assign_case(request, case_id):
         return redirect('case_list')
 
     return render(request, 'branch/case_assignment.html', {'case': case, 'responsible_users': responsible_users})
-    
-    
-    
+
 # View for Updating Case Status
 def update_case_status(request, case_id):
     case = get_object_or_404(Case, id=case_id)
@@ -213,7 +211,7 @@ def update_case_status(request, case_id):
             case.save()
 
             # Notify the case owner via email
-            send_mail(
+            send_mail(  # noqa: F821
                 'Case Status Updated',
                 f'The status of your case "{case.title}" has been updated to "{new_status}".',
                 settings.DEFAULT_FROM_EMAIL,
@@ -387,7 +385,7 @@ def cases_view(request):
             case.save()
 
             # Send email notification
-            send_mail(
+            EmailMultiAlternatives(  # noqa: F821
                 'Case Submitted Successfully',
                 f'Thank you for submitting your case: {case.title}. Our team will review it soon.',
                 settings.DEFAULT_FROM_EMAIL,
