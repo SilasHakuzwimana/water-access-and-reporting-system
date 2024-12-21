@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <title>User Profile</title>
+</head>
+<body class="container">
+    <h1>Profile Information</h1>
+    <p><strong>Name:</strong> {{ user.names }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+    <p><strong>Nationality:</strong> {{ profile.nationality }}</p>
+    <p><strong>Role:</strong> {{ profile.role }}</p>
+    
+    <h3>Location</h3>
+    <p><strong>Country:</strong> {{ location.country }}</p>
+    <p><strong>Province:</strong> {{ location.province }}</p>
+    <p><strong>District:</strong> {{ location.district }}</p>
+    <p><strong>Sector:</strong> {{ location.sector }}</p>
+    <p><strong>Cell:</strong> {{ location.cell }}</p>
+    <p><strong>Village:</strong> {{ location.village }}</p>
+
+    {% if user.profile_pic %}
+        <img src="{{ user.profile_pic.url }}" alt="Profile Picture">
+    {% else %}
+        <p>No profile picture available</p>
+    {% endif %}
+    
+    {% if profile.role == 'Technician' %}
+        <h3>Your Assigned Cases</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for case in cases %}
+                <tr>
+                    <td>{{ case.title }}</td>
+                    <td>{{ case.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

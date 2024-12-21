@@ -195,6 +195,70 @@ def assign_case(request, case_id):
 
     return render(request, 'branch/case_assignment.html', {'case': case, 'responsible_users': responsible_users})
 
+# View for listing all cases based on user roles
+@login_required
+def case_list(request):
+    user_profile = userProfile.objects.get(user=request.user)
+    
+    # If the user is a 'Manager' or 'Responsible', they can see all cases
+    if user_profile.role in ['Manager', 'Responsible']:
+        cases = Case.objects.all()
+    else:
+        # If the user is a 'Customer' or 'Technician', they can see their own cases
+        cases = Case.objects.filter(created_by=request.user)
+
+    return render(request, 'case_list.html', {'cases': cases})
+
+# Assign case to a technician, only accessible by users with 'Manager' or 'Responsible' role
+@login_required
+def assign_case(request, case_id=None):
+    user_profile = userProfile.objects.get(user=request.user)
+
+    # Only users with Manager or Responsible roles can assign cases
+    if user_profile.role not in ['Manager', 'Responsible']:
+        return redirect('case_list')  # Redirect back to the case list if unauthorized
+
+    if case_id:
+        case = get_object_or_404(Case, id=case_id)
+    else:
+        case = None
+    if request.method == 'POST':
+        form = CaseForm(request.POST, instance=case)
+        if form.is_valid():
+            form.instance.created_by = request.user  # Assign the logged-in user as the creator
+            form.save()
+            return redirect('case_list')
+    else:
+        form = CaseForm(instance=case)
+    return render(request, 'assign_case.html', {'form': form})
+
+# Reassign a case (remove current technician), available for 'Manager' or 'Responsible'
+@login_required
+def reassign_case(request, case_id):
+    user_profile = userProfile.objects.get(user=request.user)
+    
+    if user_profile.role not in ['Manager', 'Responsible']:
+        return redirect('case_list')  # Redirect if not authorized
+    
+    case = get_object_or_404(Case, id=case_id)
+    case.assigned_technician = None
+    case.save()
+    return redirect('assign_case', case_id=case.id)
+
+# View for user profile, showing information based on roles
+@login_required
+def user_profile_view(request):
+    user = request.user
+    location = Location.objects.get(user=user)
+    profile = user.profile  # from userProfile model
+    
+    # Render different profile information based on role
+    if profile.role == 'Technician':
+        cases = Case.objects.filter(assigned_technician__user=user)
+        return render(request, 'technician_profile.html', {'user': user, 'location': location, 'profile': profile, 'cases': cases})
+    
+    return render(request, 'user_profile.html', {'user': user, 'location': location, 'profile': profile})
+
 # View for Updating Case Status
 def update_case_status(request, case_id):
     case = get_object_or_404(Case, id=case_id)
@@ -362,10 +426,10 @@ def helpdesk_view(request):
 
 # User system dashboard
 
-def profile_view(request):  
-    user = request.user  # Assuming user is logged in
+def profile_view(request):
+    #user = request.warsUser  # Assuming user is logged in
     try:
-        user = warsUser.objects.get(user=user)  # Fetch related profile if exists
+        warsUser = warsUser.objects.get(user=user)  # Fetch related profile if exists
     except userProfile.DoesNotExist:
         profile = None  # Handle case where no profile exists
     return render(request, 'customer/profile.html', {'user': user, 'profile': profile})
@@ -376,7 +440,7 @@ def service_request_view(request):
 def reports_view(request):  
     return render(request, 'customer/reports.html')
 
-def cases_view(request):
+def case_view(request):
     if request.method == 'POST':
         form = CaseForm(request.POST, request.FILES)
         if form.is_valid():
@@ -402,7 +466,7 @@ def cases_view(request):
 
     # Display recent cases
     #recent_cases = Case.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'customer/cases.html', {'form': form, })
+    #return render(request, 'customer/cases.html')
 def helpdesk_view(request):
     return render(request, 'customer/helpdesk.html')
 def notifications_view(request):  # noqa: F811

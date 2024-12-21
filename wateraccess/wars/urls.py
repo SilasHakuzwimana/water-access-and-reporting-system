@@ -70,12 +70,13 @@ urlpatterns = [
     # User System Dashboard urls
 
     path('dashboard/', views.load_customer_dashboard, name='customer_dashboard'),
-    path('customer/profile/', views.profile_view, name='profile'),
-    path('customer/cases_view/', views.cases_view, name='cases'),
-    path('customer/notifications/', views.notifications_view, name='notifications'),
-    path('customer/service-requests/', views.service_requests_view, name='service_requests'),
-    path('customer/helpdesk/', views.helpdesk_view, name='helpdesk'),
-    #path('customer/logout/', views.logout, name='logout'),
+    path('user_dashboard/customer/profile/', views.profile_view, name='profile'),
+    path('user_dashboard/customer/cases_view/', views.case_view, name='cases'),
+    path('user_dashboard/customer/cases_view/', views.cases_view, name='cases'),
+    path('user_dashboard/customer/notifications/', views.notifications_view, name='notifications'),
+    path('user_dashboard/customer/service-requests/', views.service_requests_view, name='service_requests'),
+    path('user_dashboard/customer/helpdesk/', views.helpdesk_view, name='helpdesk'),
+    #path('user_dashboard/customer/logout/', views.logout, name='logout'),
 
     # Admin System Dashboard urls
 
@@ -112,6 +113,20 @@ urlpatterns = [
     path('get-sectors/<str:district_name>/', views.get_sectors, name='get_sectors'),
     path('get-cells/<str:sector_name>/', views.get_cells, name='get_cells'),
     path('get-villages/<str:cell_name>/', views.get_villages, name='get_villages'),
+
+
+
+     # Case Management
+    path('', views.case_list, name='case_list'),  # List all cases
+    path('assign/', views.assign_case, name='assign_case'),  # Assign a new case
+    path('assign/<int:case_id>/', views.assign_case, name='assign_case_with_id'),  # Assign an existing case
+    path('reassign/<int:case_id>/', views.reassign_case, name='reassign_case'),  # Reassign a case
+
+    # User Profile Management
+    path('profile/', views.user_profile_view, name='user_profile'),  # View the user profile
+
+    # For technicians, showing cases assigned to them
+    path('technician/profile/', views.user_profile_view, name='technician_profile'),  # View technician profile and their cases
 ]
 
 if settings.DEBUG:

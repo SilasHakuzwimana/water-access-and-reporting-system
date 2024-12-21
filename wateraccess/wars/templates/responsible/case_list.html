@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <title>Case List</title>
+</head>
+<body class="container">
+    <h1>Case List</h1>
+
+    {% if user.profile.role in ['Manager', 'Responsible'] %}
+        <a href="{% url 'assign_case' %}" class="btn btn-primary mb-3">Assign New Case</a>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Technician</th>
+                <th>Created By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in cases %}
+            <tr>
+                <td>{{ case.title }}</td>
+                <td>{{ case.description }}</td>
+                <td>{{ case.assigned_technician.user.names if case.assigned_technician else "Unassigned" }}</td>
+                <td>{{ case.created_by.names }}</td>
+                <td>
+                    {% if user.profile.role in ['Manager', 'Responsible'] %}
+                        <a href="{% url 'assign_case_with_id' case.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'reassign_case' case.id %}" class="btn btn-danger">Reassign</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
