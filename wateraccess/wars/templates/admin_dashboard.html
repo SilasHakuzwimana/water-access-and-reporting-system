@@ -116,18 +116,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'case_categories' %}">
-                            <img src="{% static 'images/admin-images/folder.png'%}" width="20px" class="icon"> Case Categories
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'reported_cases' %}">
                             <img src="{% static 'images/admin-images/report-cases.png' %}" width="20px" class="icon"> Reported Cases
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'branch_overview' %}">
-                            <img src="{% static 'images/admin-images/branch.png'%}" width="20px" class="icon"> Branch Overview
+                            <img src="{% static 'images/admin-images/branch.png'%}" width="20px" class="icon">
+                            Branch Overview
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'case_categories' %}">
+                            <img src="{% static 'images/admin-images/folder.png'%}" width="20px" class="icon"> Case Categories
                         </a>
                     </li>
                     <li class="nav-item">
@@ -164,51 +165,95 @@
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Profile Settings</h5>
-                                <p class="card-text">View and manage your profile.</p>
+                                <p class="card-text">View/update admin details and change password.</p>
                             </div>
                         </div>
 
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Users</h5>
-                                <p class="card-text">View and manage all users within the system.</p>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            Add, edit, delete, or activate/deactivate users (managers, customers, technicians) with a single click.
+                                        </li>
+                                        <li>
+                                            Assign roles and manage user permissions.
+                                        </li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Reported Cases</h5>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            View and manage all reported cases (open, pending, resolved).
+                                        </li>
+                                        <li>
+                                            Escalate or reassign cases as needed.
+                                        </li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Branch Overview</h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                Monitor branch performance and activities.
 
+                                            </li>
+                                            <li>
+                                                View branch details, taps, and case summary.
+                                            </li>
+                                        </ul>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Case Categories</h5>
                                 <p class="card-text">Define and manage the list of case categories.</p>
                             </div>
                         </div>
-
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Reported Cases</h5>
-                                <p class="card-text">View and resolve reported cases.</p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-group">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Branch Overview</h5>
-                                <p class="card-text">Monitor all branches and their performance.</p>
-                            </div>
-                        </div>
 
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Reports</h5>
-                                <p class="card-text">Generate system-wide performance reports.</p>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            Generate and review system-wide performance reports.
+                                        </li>
+                                        <li>
+                                            Analyze trends in water usage, tap efficiency, and case resolution.
+                                        </li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Notifications</h5>
-                                <p class="card-text">Stay updated with system notifications.</p>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            Receive updates about cases, branch activities, or system alerts.
+                                        </li>
+                                        <li>
+                                            Manage system-wide notifications.
+                                        </li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -217,14 +262,25 @@
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Help Desk</h5>
-                                <p class="card-text">Reach out for support or queries.</p>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            Respond to user inquiries and feedback.
+                                        </li>
+                                        <li>
+                                            Access and update the FAQ or help content.
+                                        </li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
 
                         <div class="card shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Logout</h5>
-                                <p class="card-text">Log out of the system securely.</p>
+                                <p class="card-text">
+                                    Secure logout with confirmation and session timeout.
+                                </p>
                             </div>
                         </div>
                     </div>

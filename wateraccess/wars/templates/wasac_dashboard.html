@@ -50,41 +50,165 @@
             <!-- Main Content Area -->
             <main class="col-md-9 col-lg-10">
                 <div id="main-content">
-                    <h3>Welcome to the Branch Manager Dashboard!</h3>
-                    <p>Explore the functionalities available to you:</p>
+                    <h3>
+                        Welcome to the Branch Manager Dashboard!
+                    </h3>
+                    <p>
+                        Explore the functionalities available to you:
+                    </p>
 
                     <!-- Initial Dashboard Content -->
                     <div class="row mt-4">
                         <div class="col-md-6 col-lg-4">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Branch Management</h5>
-                                    <p class="card-text">Manage and oversee the operations of specific branches within the WASAC system.</p>
+                                    <h5 class="card-title">
+                                        Branch Dashboard
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                <b>Active Taps</b>:
+                                                 {{ taps.tap }}
+                                            </li>
+                                            <li>
+                                                <b>Inactive Taps</b>:
+                                                 {{ taps.tap }}
+                                            </li>
+                                            <li>
+                                                <b>Ongoing cases</b>:
+                                                 {{ cases.case }}
+                                            </li>
+                                            <li>
+                                                <b>Resolved cases</b>:
+                                                 {{ cases.case }}
+                                            </li>
+                                            <li>
+                                                <b>Daily</b>:
+                                                 {{ litres.litre per day }}
+                                            </li>
+
+                                            <li>
+                                                <b>Monthly</b>:
+                                                 {{ litres.litre per month}}
+                                            </li>
+                                            <li>
+                                                <b>Yearly</b>:
+                                                 {{ litres.litre per year }}
+                                            </li>
+                                            <li>
+                                                Interactive map of branch and manager notes.
+                                            </li>
+                                            <li>
+                                                Recent activities and manager notes.
+                                            </li>
+                                        </ul>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Branch Management
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                Add/edit branch details and manage staff.
+                                            </li>
+                                            <li>
+                                                Assign technicians and track resources.
+                                            </li>
+                                            <li>
+                                                Set branch operational hours and send notifications.
+                                            </li>
+                                        </ul>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Tap Monitoring</h5>
-                                    <p class="card-text">Monitor the status of taps, including any issues and maintenance needs.</p>
+                                    <h5 class="card-title">
+                                        Tap Monitoring
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                View tap statuses (working/faulty).
+                                            </li>
+                                            <li>
+                                                Map-based tap monitoring with analytics.
+                                            </li>
+                                            <li>
+                                                Schedule maintenance and manage tap data.
+                                            </li>
+                                        </ul>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Case Assignment</h5>
-                                    <p class="card-text">Assign cases to technicians, track case progress, and ensure timely resolutions.</p>
+                                    <h5 class="card-title">
+                                        Case Assignment
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                List of open, pending, and resolved cases.
+                                            </li>
+                                            <li>
+                                                Assign cases to technicians and track progress.
+                                            </li>
+                                            <li>
+                                                Escalate urgent cases and log detailed reports.
+                                            </li>
+                                        </ul>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Performance Reports</h5>
-                                    <p class="card-text">View and generate reports on branch performance, tap efficiency, and case resolution metrics.</p>
+                                    <h5 class="card-title">
+                                        Performance Reports
+                                    </h5>
+                                    <p class="card-text">
+                                        <ul>
+                                            <li>
+                                                Metrics for branch, technicians, and tap efficiency.
+                                            </li>
+                                            <li>
+                                                Visualize trends with charts and exports.
+                                            </li>
+                                            <li>
+                                                Analyze resolved vs pending cases.
+                                            </li>
+                                        </ul>
+                                    </p>
                                 </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    Logout
+                                </h5>
+                                <p class="card-text">
+                                    <ul>
+                                        <li>
+                                            Secure logout with session timeout.
+                                        </li>
+                                        <li>
+                                            Redirect to login or confirmation page.
+                                        </li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
