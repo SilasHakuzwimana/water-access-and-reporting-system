@@ -57,7 +57,7 @@ class Password(models.Model):
         return f"Password details for {self.user.names}"
 
 # Profile Model
-class UserProfile(models.Model):
+class userProfile(models.Model):
     ROLE_CHOICES = [
         ('Manager', 'Manager'),
         ('Responsible', 'Responsible'),
