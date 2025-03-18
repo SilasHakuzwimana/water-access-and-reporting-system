@@ -70,10 +70,16 @@ class userProfile(models.Model):
         ('Female', 'Female'),
         ('Other', 'Other'),
     ]
-
+    NATIONALITY_CHOICES = [
+        ('Rwandan', 'Rwandan'),
+        ('Ugandan', 'Ugandan'),
+        ('Kenyan', 'Kenyan'),
+        ('Other', 'Other'),
+    ]
     user = models.OneToOneField(warsUser, on_delete=models.CASCADE, related_name='profile')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Customer')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='Other')  # Add this field
+    nationality = models.CharField(max_length=20, choices=NATIONALITY_CHOICES, default='Other')  # Add this field
 
     def __str__(self):
         return f"{self.user.names} - {self.role}"
