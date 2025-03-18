@@ -27,8 +27,7 @@ class warsUser(models.Model):
 
 # Location Model
 class Location(models.Model):
-    user = models.OneToOneField(w
-                                arsUser, on_delete=models.CASCADE, related_name='location')
+    user = models.OneToOneField(warsUser, on_delete=models.CASCADE, related_name='location')
     country = models.CharField(max_length=100)
     province = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
