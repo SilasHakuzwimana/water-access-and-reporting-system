@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 logger = logging.getLogger(__name__)
 
 # User Model
-class WarsUser(models.Model):
+class warsUser(models.Model):
     id = models.BigAutoField(primary_key=True)
     names = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -27,7 +27,8 @@ class WarsUser(models.Model):
 
 # Location Model
 class Location(models.Model):
-    user = models.OneToOneField(WarsUser, on_delete=models.CASCADE, related_name='location')
+    user = models.OneToOneField(w
+                                arsUser, on_delete=models.CASCADE, related_name='location')
     country = models.CharField(max_length=100)
     province = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
@@ -40,7 +41,7 @@ class Location(models.Model):
 
 # Password Model
 class Password(models.Model):
-    user = models.OneToOneField(WarsUser, on_delete=models.CASCADE, related_name='password')
+    user = models.OneToOneField(warsUser, on_delete=models.CASCADE, related_name='password')
     password_hash = models.CharField(max_length=255)
     otp = models.CharField(max_length=10, null=True, blank=True)
     otp_expiration_time = models.DateTimeField(null=True, blank=True)
@@ -65,7 +66,7 @@ class UserProfile(models.Model):
         ('Technician', 'Technician'),
     ]
 
-    user = models.OneToOneField(WarsUser, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(warsUser, on_delete=models.CASCADE, related_name='profile')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Customer')
 
     def __str__(self):
